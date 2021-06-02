@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Main from './modules/edit-parent-state-with-functions/index.jsx';
+
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -7,8 +9,8 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				App component
+			<div className="App">
+				<Main />
 			</div>
 		);
 	};
