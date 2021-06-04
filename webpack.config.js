@@ -19,7 +19,7 @@ module.exports = (env) => {
 			/**
 			 * generate contenthash only on production mode
 			 */
-			filename: env.dev ? '[name].js' : '[name].[contenthash].js',
+			filename: env.dev ? 'scripts/[name].js' : 'scripts/[name].[contenthash].js',
 			/**
 			 * cleans the content of the output folder before new build
 			 * without using webpack clean plugin
@@ -72,12 +72,21 @@ module.exports = (env) => {
 						'css-loader',
 						'sass-loader'
 					]
+				},
+				{
+					test: /\.png/,
+					use: {
+						loader: 'file-loader',
+						options: {
+							name: env.dev ? 'images/[name].[ext]' : 'images/[contenthash].[ext]'
+						}
+					}
 				}
 			]
 		},
 		plugins: [
 			new MiniCSSExtractPlugin({
-				filename: '[name].[contenthash].css',
+				filename: 'styles/[name].[contenthash].css',
 			}),
 			new HTMLWebpackPlugin({
 				minify: false,
