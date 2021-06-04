@@ -1,20 +1,15 @@
 import React from 'react';
 
-export class Child1 extends React.Component {
-	state = {};
+import './Child1.scss';
 
-	constructor(props) {
-		super(props);
-		this.state.text = 'Child1 component';
-	}
-
-	render() {
-		return(
-			<div className="child">
-				<h1>{this.state.text}</h1>
-				<input type="text" onInput={(event) => {this.props.modifyParentState(event.target.value)}} />
+export function Child1(props) {
+	return(
+		<div id="child1" className={props.className}>
+			<h1>Child1</h1>
+			<div className="inputArea">
+				<input type="text" onInput={(event) => {props.modifyParentState(event.target.value)}} />
+				<span className="arrow">&#8656;</span>
 			</div>
-		);
-	}
-
+		</div>
+	);
 }
