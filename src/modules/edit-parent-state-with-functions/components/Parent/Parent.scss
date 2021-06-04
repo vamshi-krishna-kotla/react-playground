@@ -1,0 +1,55 @@
+#parent {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 1rem;
+
+	.stateTextArea {
+		min-height: 5rem;
+		width: 100%;
+	}
+
+	.childrenComponents {
+		display: flex;
+		flex-direction: row;
+
+		.childComp {
+			border: 1px solid black;
+			border-radius: 5px;
+			margin: 0 0.5rem;
+			width: 100%;
+			
+			.inputArea {
+				display: flex;
+
+				.arrow {
+					position: relative;
+					font-size: 1.5rem;
+					width: 15%;
+					animation: indicate 1s infinite;
+				}
+
+				input[type=text] {
+					width: 90%;
+					
+					&:focus {
+						&+.arrow {
+							animation: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes indicate {
+	0% {
+		left: 0;
+	}
+	50% {
+		left: 20px;
+	}
+	100% {
+		left: 0;
+	}
+}
