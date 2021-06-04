@@ -2,6 +2,16 @@
 	border: 1px solid black;
 	border-radius: 5px;
 	padding: 1rem;
+	position: relative;
+
+	.reactImageArea {
+		width: 100%;
+		text-align: center;
+
+		.reactImage {
+			animation: rotate linear 5s infinite;
+		}
+	}
 
 	.stateTextArea {
 		min-height: 5rem;
@@ -51,5 +61,14 @@
 	}
 	100% {
 		left: 0;
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotateZ(0);
+	}
+	100% {
+		transform: rotateZ(360deg);
 	}
 }

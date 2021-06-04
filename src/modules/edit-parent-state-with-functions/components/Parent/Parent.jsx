@@ -3,6 +3,8 @@ import React from 'react';
 import { Child1 } from '../Child1/Child1.jsx';
 import { Child2 } from '../Child2/Child2.jsx';
 
+import ReactImage from '../../../../images/logo192.png';
+
 import './Parent.scss';
 
 export class Parent extends React.Component {
@@ -22,6 +24,9 @@ export class Parent extends React.Component {
 	render() {
 		return(
 			<div id="parent">
+				<div className="reactImageArea">
+					<img className="reactImage" src={ReactImage} alt="React Logo" />
+				</div>
 				<h2>This is the parent component where the text is saved</h2>
 				<h3>Enter text in the input boxes below to change the parent state</h3>
 				<h3>The following are child components</h3>
