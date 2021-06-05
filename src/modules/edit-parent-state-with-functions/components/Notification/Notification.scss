@@ -1,0 +1,46 @@
+.notification {
+	animation: slideLeft 0.25s linear;
+	background-color: yellow;
+	border-radius: 5px;
+	max-width: 35%;
+	padding: 0.65rem;
+	position: fixed;
+	right: 2%;
+	z-index: 1;
+
+	&.removed {
+		animation: slideRightAndRemove 0.25s linear forwards;
+	}
+
+	.statement {
+		font-size: 1.5rem;
+		margin-right: 1rem;
+	}
+
+	.close {
+		cursor: pointer;
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		font-size: 15px;
+	}
+}
+
+@keyframes slideLeft {
+	from {
+		right: -35%;
+	}
+	to {
+		right: 2%;
+	}
+}
+
+@keyframes slideRightAndRemove {
+	0% {
+		right: 2%;
+	}
+	100% {
+		right: -35%;
+		visibility: hidden;
+	}
+}
