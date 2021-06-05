@@ -49,7 +49,14 @@ export class NotificationComponent extends Component {
 	render() {
 		return (
 			<div className={["notification", !this.state.display ? 'removed' : ''].join(' ')}>
-				<span className="statement">{this.props.statement}</span>
+				<span
+					className="statement"
+					style={{
+						fontSize: (this.props.fontSize || '1.5') + 'rem'
+					}}
+				>
+					{this.props.statement}
+				</span>
 				<span className="close" onClick={this.closeNotification}>&#x2716;</span>
 			</div>
 		);

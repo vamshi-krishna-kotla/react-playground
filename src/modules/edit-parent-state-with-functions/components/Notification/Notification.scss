@@ -4,7 +4,7 @@
 	border-radius: 5px;
 	max-width: 35%;
 	padding: 0.65rem;
-	position: fixed;
+	position: absolute;
 	right: 2%;
 	z-index: 1;
 
@@ -13,7 +13,6 @@
 	}
 
 	.statement {
-		font-size: 1.5rem;
 		margin-right: 1rem;
 	}
 
