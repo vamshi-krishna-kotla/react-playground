@@ -4,18 +4,31 @@
 	padding: 1rem;
 	position: relative;
 
-	.reactImageArea {
+	.parentInfo {
+		display: flex;
+		justify-content: space-around;
 		width: 100%;
-		text-align: center;
 
-		.reactImage {
-			animation: rotate linear 5s infinite;
+		.imageArea {
+			display: inline-block;
+			text-align: center;
+
+			.reactImage {
+				animation: rotate linear 5s infinite;
+			}
+		}
+
+		.infoTextArea {
+			position: relative;
 		}
 	}
 
 	.stateTextArea {
+		background-color: rgba($color: gray, $alpha: 0.5);
+		border-radius: 5px;
 		min-height: 5rem;
-		width: 100%;
+		overflow: auto;
+		padding: 0.5rem;
 	}
 
 	.childrenComponents {
@@ -27,7 +40,7 @@
 			border-radius: 5px;
 			margin: 0 0.5rem;
 			width: 100%;
-			
+
 			.inputArea {
 				display: flex;
 
@@ -38,11 +51,11 @@
 					animation: indicate 1s infinite;
 				}
 
-				input[type=text] {
+				input[type="text"] {
 					width: 90%;
-					
+
 					&:focus {
-						&+.arrow {
+						& + .arrow {
 							animation: none;
 						}
 					}
@@ -65,10 +78,10 @@
 }
 
 @keyframes rotate {
-	0% {
+	from {
 		transform: rotateZ(0);
 	}
-	100% {
+	to {
 		transform: rotateZ(360deg);
 	}
 }
