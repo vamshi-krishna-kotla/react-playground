@@ -1,4 +1,63 @@
 #child1 {
 	background-color: azure;
+	overflow: hidden;
 	padding: 1rem;
+	transition: 0.2s;
+
+	.title {
+		text-align: center;
+	}
+
+	.btnContainer {
+		display: flex;
+		justify-content: space-around;
+		margin: 1rem auto;
+
+		.toggleUsage {
+			border-radius: 5px;
+			border: 0.5px solid aqua;
+			cursor: pointer;
+			display: block;
+			font-size: 1rem;
+			margin: 0.5rem auto;
+			padding: 0.5rem;
+			transition: 0.2s;
+	
+			&:active {
+				transform: translateY(3px);
+			}
+	
+			&:hover {
+				box-shadow: 0 4px 10px gray;
+			}
+	
+			&.presentButton {
+				background-image: linear-gradient(to right, white 50%, aqua 50%);
+			}
+	
+			&.presentEdit{
+				background-image: linear-gradient(to left, white 50%, aqua 50%);
+			}
+		}
+	
+		.editParent {
+			border-radius: 5px;
+			border: 0.5px solid aqua;
+			cursor: pointer;
+			display: block;
+			font-size: 1rem;
+			font-weight: bold;
+			margin: 0.5rem auto;
+			padding: 0.5rem;
+			transition: 0.2s;
+	
+			&:active {
+				transform: translateY(3px);
+			}
+	
+			&:hover {
+				box-shadow: 0 4px 10px gray;
+			}
+		}
+	}
 }
