@@ -47,22 +47,22 @@ export class Child1 extends Component {
 				{
 					this.state.notify ?
 					<NotificationComponent fontSize="1" statement={
-						this.state.useButton ? "Click to edit parent state" : "Enter to edit parent state"
+						this.state.useButton ? "Click to edit parent state" : "Type to edit parent state"
 					}/>
 					: null
 				}
-				<h1 className="title">Child1</h1>
+				<h2 className="title">Child1</h2>
 				<div className="inputArea">
 					<input
 						type="text"
 						onInput={this.onTextInput}
-						placeholder="Enter here to edit parent"
+						placeholder="Type here to edit parent state"
 					/>
 					<span className="arrow">&#8656;</span>
 				</div>
 				<div className="btnContainer">
 					<button className={["toggleUsage", (this.state.useButton ? 'presentButton' : 'presentEdit')].join(" ")} onClick={this.toggleButtonUsage}>
-						Toggle
+						Switch State Edit
 					</button>
 					<button
 						className="editParent"

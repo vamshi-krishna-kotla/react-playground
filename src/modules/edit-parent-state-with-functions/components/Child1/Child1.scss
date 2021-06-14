@@ -1,5 +1,5 @@
 #child1 {
-	background-color: azure;
+	background-color: rgba($color: white, $alpha: 0.5);
 	overflow: hidden;
 	padding: 1rem;
 	transition: 0.2s;
@@ -41,6 +41,7 @@
 		}
 	
 		.editParent {
+			background-color: #fff;
 			border-radius: 5px;
 			border: 0.5px solid aqua;
 			cursor: pointer;

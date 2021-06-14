@@ -9,8 +9,8 @@
 	.btnContainer {
 		display: flex;
 		justify-content: space-around;
-		text-align: center;
 		margin: 1rem auto;
+		text-align: center;
 
 		.toggleUsage {
 			background-color: #fff;
@@ -36,8 +36,8 @@
 	.currentStateArea {
 		background-color: rgba($color: gray, $alpha: 0.2);
 		border-radius: 5px;
-		min-height: 1.75rem;
 		max-height: 2.5rem;
+		min-height: 1.75rem;
 		overflow: auto;
 		padding: 0.5rem;
 	}

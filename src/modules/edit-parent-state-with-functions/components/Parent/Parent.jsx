@@ -15,7 +15,7 @@ export class Parent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state.text = 'children editable text';
+		this.state.text = '';
 	}
 
 	modifyState = (value) => {
@@ -44,14 +44,14 @@ export class Parent extends React.Component {
 						<img className="reactImage" src={ReactImage} alt="React Logo" />
 					</div>
 					<div className="infoTextArea">
-						<h2>This is the parent component where the text is saved</h2>
-						<h3>Enter text in the input boxes below to change the parent state</h3>
-						<h3>The following are child components</h3>
+						<h3>This is the parent component where the text is saved</h3>
+						<h4>Enter text in the input boxes below to change the parent state</h4>
+						<h4>The following are child components</h4>
 					</div>
 				</div>
-				<h1 className="stateTextArea">
+				<h2 className="stateTextArea">
 					{this.state.text}
-				</h1>
+				</h2>
 				<div className="childrenComponents">
 					<Child1 className="childComp" modifyParentState={this.modifyState} />
 					<Child2 className="childComp" editParentState={this.modifyState}/>

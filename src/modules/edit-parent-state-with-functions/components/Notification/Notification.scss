@@ -2,6 +2,7 @@
 	animation: slideLeft 0.25s linear;
 	background-color: aqua;
 	border-radius: 5px;
+	border: 0.5px solid black;
 	max-width: 35%;
 	padding: 0.65rem;
 	position: absolute;
@@ -12,16 +13,16 @@
 		animation: slideRightAndRemove 0.25s linear forwards;
 	}
 
-	.statement {
-		margin-right: 1rem;
-	}
-
 	.close {
 		cursor: pointer;
-		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
 		font-size: 15px;
+		position: absolute;
+		right: 0.5rem;
+		top: 0.5rem;
+	}
+
+	.statement {
+		margin-right: 1rem;
 	}
 }
 

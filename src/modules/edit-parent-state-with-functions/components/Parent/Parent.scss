@@ -16,10 +16,14 @@
 
 			.reactImage {
 				animation: rotate linear 5s infinite;
+				height: 9rem;
 			}
 		}
 
 		.infoTextArea {
+			border-radius: 5px;
+			border: 0.25px solid rgba($color: black, $alpha: 0.5);
+			padding: 0.25rem;
 			position: relative;
 		}
 	}
@@ -27,9 +31,17 @@
 	.stateTextArea {
 		background-color: rgba($color: gray, $alpha: 0.2);
 		border-radius: 5px;
-		min-height: 5rem;
+		min-height: 2.5rem;
 		overflow: auto;
 		padding: 0.5rem;
+
+		&:empty {
+			&::after {
+				content: 'children editable text';
+				font-size: 1.25rem;
+				opacity: 0.5;
+			}
+		}
 	}
 
 	.childrenComponents {
@@ -37,8 +49,8 @@
 		flex-direction: row;
 
 		.childComp {
-			border: 1px solid black;
 			border-radius: 5px;
+			border: 1px solid black;
 			margin: 0 0.5rem;
 			position: relative;
 			width: 100%;
@@ -47,10 +59,10 @@
 				display: flex;
 
 				.arrow {
-					position: relative;
-					font-size: 1.5rem;
-					width: 15%;
 					animation: indicate 1s infinite;
+					font-size: 1.5rem;
+					position: relative;
+					width: 15%;
 				}
 
 				input[type="text"] {
