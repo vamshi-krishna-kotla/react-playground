@@ -1,4 +1,44 @@
 #child2 {
-	background-color: aqua;
+	background-color: rgba($color: aqua, $alpha: 0.25);
 	padding: 1rem;
+
+	.title {
+		text-align: center;
+	}
+
+	.btnContainer {
+		display: flex;
+		justify-content: space-around;
+		text-align: center;
+		margin: 1rem auto;
+
+		.toggleUsage {
+			background-color: #fff;
+			border-radius: 5px;
+			border: 0.5px solid aqua;
+			cursor: pointer;
+			display: block;
+			font-size: 1rem;
+			margin: 0.5rem auto;
+			padding: 0.5rem;
+			transition: 0.2s;
+	
+			&:active {
+				transform: translateY(3px);
+			}
+	
+			&:hover {
+				box-shadow: 0 4px 10px gray;
+			}
+		}
+	}
+
+	.currentStateArea {
+		background-color: rgba($color: gray, $alpha: 0.2);
+		border-radius: 5px;
+		min-height: 1.75rem;
+		max-height: 2.5rem;
+		overflow: auto;
+		padding: 0.5rem;
+	}
 }
