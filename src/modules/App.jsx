@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from './modules/edit-parent-state-with-functions/index.jsx';
+import Main from './edit-parent-state-with-functions/index.jsx';
 
 export default class App extends React.Component {
 	constructor(props) {

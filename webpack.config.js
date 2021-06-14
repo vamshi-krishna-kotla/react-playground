@@ -13,7 +13,9 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
  */
 module.exports = (env) => {
 	return {
-		entry: './src/index.js',
+		entry: {
+			'modules': './src/modules/index.js'
+		},
 		output: {
 			path: path.resolve(__dirname, 'dist'),
 			/**
