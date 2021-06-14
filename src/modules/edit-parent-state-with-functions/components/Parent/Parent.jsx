@@ -8,16 +8,35 @@ import { Child1 } from '../Child1/Child1.jsx';
 import { Child2 } from '../Child2/Child2.jsx';
 import { NotificationComponent } from '../Notification/Notification.jsx';
 
+/**
+ * Parent Component holding two children components
+ * which enables the children to edit the current state
+ * via functions passed down as Props
+ */
 export class Parent extends React.Component {
+	/**
+	 * declare the initial state
+	 */
 	state = {
 		notify: false
 	};
 
+	/**
+	 * 
+	 * @param {Object} props : any given props from parent component
+	 * 
+	 * calling in the React component to bind the props
+	 */
 	constructor(props) {
 		super(props);
 		this.state.text = '';
 	}
 
+	/**
+	 * 
+	 * @param {String} value : passed from within the calling components/functions
+	 * this value will be set to display on the DOM
+	 */
 	modifyState = (value) => {
 		/**
 		 * we need to remove the notification component and remount it
