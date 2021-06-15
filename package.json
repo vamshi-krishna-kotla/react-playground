@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build:client": "webpack --mode production",
+    "build:server": "webpack --mode production --config webpack.server.js",
     "serve": "webpack serve --mode development --env dev"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "ignore-loader": "^0.1.2",
     "mini-css-extract-plugin": "^1.6.0",
     "node-sass": "^6.0.0",
     "sass-loader": "^12.0.0",
