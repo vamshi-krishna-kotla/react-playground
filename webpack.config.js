@@ -14,7 +14,8 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 module.exports = (env) => {
 	return {
 		entry: {
-			'modules': './src/modules/index.js'
+			'modules': './src/modules/index.js',
+			'projects': './src/projects/index.js'
 		},
 		output: {
 			path: path.resolve(__dirname, 'dist'),
@@ -90,6 +91,9 @@ module.exports = (env) => {
 			new MiniCSSExtractPlugin({
 				filename: 'styles/[name].[contenthash].css',
 			}),
+			/**
+			 * ref: https://github.com/jantimon/html-webpack-plugin#options
+			 */
 			new HTMLWebpackPlugin({
 				minify: false,
 				template: './index.html',
@@ -98,9 +102,16 @@ module.exports = (env) => {
 				 * in the final HTML
 				 * useful for cache busting
 				 *
-				 * ref: https://github.com/jantimon/html-webpack-plugin#options
 				 */
 				// hash: true
+				chunks: ['modules'],
+				filename: 'modules.html'
+			}),
+			new HTMLWebpackPlugin({
+				minify: false,
+				template: './index.html',
+				chunks: ['projects'],
+				filename: 'projects.html'
 			})
 		]
 	};
