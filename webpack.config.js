@@ -1,5 +1,8 @@
 const path = require('path');
 
+/**
+ * required webpack plugins
+ */
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
@@ -13,6 +16,9 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
  */
 module.exports = (env) => {
 	return {
+		/**
+		 * enable multiple entries and respective build outputs
+		 */
 		entry: {
 			'modules': './src/modules/index.js',
 			'projects': './src/projects/index.js'
@@ -65,7 +71,7 @@ module.exports = (env) => {
 						 * @returns certain required loader based on env
 						 */
 						() => {
-							if(env.dev)
+							if (env.dev)
 								return 'style-loader'
 
 							return {
@@ -81,6 +87,9 @@ module.exports = (env) => {
 					use: {
 						loader: 'file-loader',
 						options: {
+							/**
+							 * use contenthash for referencing images on production mode
+							 */
 							name: env.dev ? 'images/[name].[ext]' : 'images/[contenthash].[ext]'
 						}
 					}
@@ -94,6 +103,7 @@ module.exports = (env) => {
 			/**
 			 * ref: https://github.com/jantimon/html-webpack-plugin#options
 			 */
+			// generate HTML for 'modules' and include required chunks
 			new HTMLWebpackPlugin({
 				minify: false,
 				template: './index.html',
@@ -107,6 +117,7 @@ module.exports = (env) => {
 				chunks: ['modules'],
 				filename: 'modules.html'
 			}),
+			// generate HTML for 'projects' and include required chunks
 			new HTMLWebpackPlugin({
 				minify: false,
 				template: './index.html',
