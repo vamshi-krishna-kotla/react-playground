@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:client": "webpack --mode production",
-    "build:server": "webpack --mode production --config webpack.server.js",
-    "serve": "webpack serve --mode development --env dev"
+    "build:client": "webpack --mode production --env BUILD_ENV=client",
+    "build:server": "webpack --mode production --env BUILD_ENV=server",
+    "serve:client": "webpack serve --mode development --env BUILD_ENV=client dev"
   },
   "repository": {
     "type": "git",

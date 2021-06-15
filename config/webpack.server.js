@@ -15,7 +15,7 @@ module.exports = (env) => {
 			'www': './server/app.js'
 		},
 		output: {
-			path: path.resolve(__dirname, '.bin'),
+			path: path.resolve(__dirname, '../', '.bin'),
 			filename: '[name]',
 			clean: true
 		},
