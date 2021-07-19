@@ -1,5 +1,5 @@
 import React from 'react';
-import { hydrate } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 
 import App from './App.jsx';
 
@@ -15,4 +15,19 @@ import App from './App.jsx';
  * hydrate() behaves same as render() if there is no SSR, i.e.,
  * if there is no template HTML of the Component already present
  */
-hydrate(<App />, document.getElementById('root'));
+let root = document.getElementById('root');
+
+/**
+ * if there are children to the root element, it indicates that
+ * the HTML has been server-side rendered (production mode)
+ * and "hydrate" needs to be called
+ * 
+ * if there are no children, it means the app is running in development mode
+ * and hence "render" needs to be called
+ * 
+ * 
+ * Note: this is basically to avoid an error, occuring when calling
+ * "hydrate" in development mode where there is no content in the
+ * root element
+ */
+root.children[0] ? hydrate(<App />, root) :	render(<App />, root);
