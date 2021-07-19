@@ -136,6 +136,18 @@ module.exports = (env) => {
 				chunks: ['projects'],
 				filename: 'projects.html'
 			})
-		]
+		],
+		/**
+		 * configurations for webpack-dev-server
+		 */
+		devServer: {
+			port: 8000,
+			historyApiFallback: {
+				rewrites: [
+					{ from: /^\/modules/, to: '/modules.html' },
+					{ from: /^\/projects/, to: '/projects.html' },
+				]
+			},
+		},
 	};
 }
