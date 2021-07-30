@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AnalogClock from './analog_clock/Clock.jsx';
+
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -8,7 +10,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<h1>Projects</h1>
+				<AnalogClock />
 			</div>
 		);
 	};
