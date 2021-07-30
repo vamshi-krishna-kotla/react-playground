@@ -71,28 +71,76 @@ module.exports = (env) => {
 				},
 				{
 					test: /\.scss$/,
-					use: [
-						/**
-						 * function to decide the final loader based on env
-						 * 
-						 * - use 'style-loader' to append styles to HTML
-						 * 	using style tag (easy for dev)
-						 * - use MiniCSSExtractPlugin to generate new CSS files
-						 * 	for production
-						 * 
-						 * @returns certain required loader based on env
-						 */
-						() => {
-							if (env.dev)
-								return 'style-loader'
+					/**
+					 * 
+					 * @param {Object} param0 as 'resource
+					 * destructuring the 'resource' key from the config object
+					 * as it is used for setting further loader configuration
+					 * 
+					 * @returns appropriate loader configuration object
+					 * with options that work for CSS modules and direct CSS imports
+					 * 
+					 */
+					use: ({resource}) => {
+						let isCssModuleFile = /.*\.module\.scss$/.test(resource);
 
-							return {
-								loader: MiniCSSExtractPlugin.loader
-							}
-						},
-						'css-loader',
-						'sass-loader'
-					]
+						return [
+							/**
+							 * function to decide the final loader based on env
+							 * 
+							 * - use 'style-loader' to append styles to HTML
+							 * 	using style tag (easy for dev)
+							 * - use MiniCSSExtractPlugin to generate new CSS files
+							 * 	for production
+							 * 
+							 * @returns certain required loader based on env
+							 */
+							{
+								loader: env.dev ? 'style-loader' : MiniCSSExtractPlugin.loader,
+							},
+							/**
+							 * flag that is set based on the (SCSS) file, if it is
+							 * a '<name>.module.scss' or '<name>.scss', based on the usage for
+							 * CSS modules
+							 */
+							{
+								loader: 'css-loader',
+								/**
+								 * we are using a function to return the loader configuration
+								 * hence we need a unique identification for the "options" object
+								 * which is passed to the loader
+								 * this has to be passed to the "ident" key
+								 * i.e., { loader, options, ident } have to be used
+								 *  
+								 * ref. links
+								 * https://github.com/webpack/webpack/issues/8952#issuecomment-651269205
+								 * https://webpack.js.org/configuration/module/#useentry
+								 * 
+								 * setting a different "ident" value based on the 'isCssModuleFile' flag
+								 * as the "ident" key should be unique for each set of options
+								 */
+								ident: isCssModuleFile ? 'css_module' : 'non_css_module',
+								/**
+								 * conditionally setting the options object based on the 'isCssModuleFile' flag
+								 * appropriate options are passed for files used for CSS modules
+								 */
+								options: isCssModuleFile ? {
+									modules: {
+										/**
+										 * specify the format of identifiers (classNames or IDs)
+										 * 
+										 * <name-of-file>__<className>__<base64-number-with-specified-digits>
+										 * e.g.: .Info-module__info___1ClHo
+										 * 
+										 * if not mentioned then a random hash will be generated
+										 */
+										localIdentName: env.dev ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:7]'
+									}
+								} : {}
+							},
+							'sass-loader'
+						]
+					}
 				},
 				{
 					test: /\.png/,
