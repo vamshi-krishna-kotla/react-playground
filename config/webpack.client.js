@@ -14,7 +14,11 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
  * that it gets from terminal
  */
 module.exports = (env) => {
-	return {
+	/**
+	 * store the config object in an object
+	 * to manipulate required params based on env
+	 */
+	let webpackConfig = {
 		/**
 		 * enable multiple entries and respective build outputs
 		 */
@@ -82,28 +86,24 @@ module.exports = (env) => {
 					 * 
 					 */
 					use: ({resource}) => {
+						/**
+						 * flag that is set based on the (SCSS) file, if it is
+						 * a '<name>.module.scss' or '<name>.scss', based on the usage for
+						 * CSS modules
+						 */
 						let isCssModuleFile = /.*\.module\.scss$/.test(resource);
 
 						return [
-							/**
-							 * function to decide the final loader based on env
-							 * 
-							 * - use 'style-loader' to append styles to HTML
-							 * 	using style tag (easy for dev)
-							 * - use MiniCSSExtractPlugin to generate new CSS files
-							 * 	for production
-							 * 
-							 * @returns certain required loader based on env
-							 */
 							{
-								loader: env.dev ? 'style-loader' : MiniCSSExtractPlugin.loader,
+								/**
+								 * - use 'style-loader' to append styles to HTML
+								 * 	using style tag (easy for dev)
+								 * 
+								 */
+								loader: 'style-loader'
 							},
-							/**
-							 * flag that is set based on the (SCSS) file, if it is
-							 * a '<name>.module.scss' or '<name>.scss', based on the usage for
-							 * CSS modules
-							 */
 							{
+								// loader to convert SASS to CSS
 								loader: 'css-loader',
 								/**
 								 * we are using a function to return the loader configuration
@@ -125,6 +125,7 @@ module.exports = (env) => {
 								 * appropriate options are passed for files used for CSS modules
 								 */
 								options: isCssModuleFile ? {
+									// set the modules property if the styles are used as CSS modules
 									modules: {
 										/**
 										 * specify the format of identifiers (classNames or IDs)
@@ -134,10 +135,13 @@ module.exports = (env) => {
 										 * 
 										 * if not mentioned then a random hash will be generated
 										 */
-										localIdentName: env.dev ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:7]'
+										localIdentName: '[name]__[local]___[hash:base64:5]'
 									}
-								} : {}
+								} :
+								// pass empty "options" object for styles used normally, unlike CSS modules
+								{}
 							},
+							// loader to parse through SASS code
 							'sass-loader'
 						]
 					}
@@ -185,10 +189,16 @@ module.exports = (env) => {
 				filename: 'projects.html'
 			})
 		],
+	}
+
+	// modifying the configuration based on environment
+	if (env.dev) {
+		// entering this block implies compilation is in DEVELOPMENT mode
 		/**
 		 * configurations for webpack-dev-server
 		 */
-		devServer: {
+		webpackConfig['devServer'] = 
+		{
 			port: 8000,
 			historyApiFallback: {
 				rewrites: [
@@ -196,6 +206,44 @@ module.exports = (env) => {
 					{ from: /^\/projects/, to: '/projects.html' },
 				]
 			},
-		},
-	};
+		}
+	}
+	else {
+		// entering this block implies compilation is in PRODUCTION mode
+
+		/**
+		 * in production mode we need to use the MiniCSSExtractPlugin
+		 * to load CSS onto the page
+		 * 
+		 * MiniCSSExtractPlugin.loader isn't supporting the 'ident' option
+		 * hence we can NOT conditionally pass the CSS modules options
+		 * 
+		 * to avoid the error using MiniCSSExtractPlugin in production mode
+		 * 1. exclude the compilation of <name>.module.scss in /\.scss$/ rule
+		 * 	- avoid compiling CSS modules in base SCSS rule
+		 * 2. add a new rule to compile the <name>.module.scss to the config
+		 * 	- compile the CSS modules, avoided by base SCSS rule, with right
+		 * 	'modules' options
+		 */
+		webpackConfig.module.rules[1]['exclude'] = /\.module\.scss$/;
+		webpackConfig.module.rules.push({
+			test: /\.module\.scss$/,
+			use: [
+				/**
+				 * - use MiniCSSExtractPlugin to generate new CSS files for production
+				 */
+				MiniCSSExtractPlugin.loader,
+				{
+					loader: 'css-loader',
+					options: {
+						modules: {
+							localIdentName: '[hash:base64:7]'
+						}
+					}
+				},
+				'sass-loader'
+			]
+		});
+	}
+	return webpackConfig;
 }
