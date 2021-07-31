@@ -155,19 +155,32 @@ export default function AnalogClock() {
 		radius *= 0.9;
 
 		/**
-		 * draw the clock face
+		 * draw the canvas entirely for every second
+		 * to update the time
+		 * 
+		 * @note
+		 * a part of the canvas is unable to be updated
+		 * the clock hands are the only part that are changing the position
+		 * only the hands cannot be cleared and redrawn
+		 * 
+		 * hence the entire canvas is redrawn for every second
 		 */
-		drawClockFace();
+		setInterval(() => {
+			/**
+			 * draw the clock face
+			 */
+			drawClockFace();
 
-		/**
-		 * draw the clock numbers
-		 */
-		drawClockNumbers();
+			/**
+			 * draw the clock numbers
+			 */
+			drawClockNumbers();
 
-		/**
-		 * draw and move the hands
-		 */
-		drawClockHands();
+			/**
+			 * draw and move the hands
+			 */
+			drawClockHands();
+		}, 1000);
 	};
 
 	/**
