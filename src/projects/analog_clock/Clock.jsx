@@ -4,19 +4,37 @@ import React, { useEffect } from 'react';
 import styles from './Clock.module.scss';
 
 export default function AnalogClock() {
+
+	let canvas = null;
+
 	/**
-	 * create and store the canvas element
+	 * 
+	 * @note
+	 * the components are parsed on the server to achieve server-side rendering
+	 * 
+	 * if there are calls for 'document(DOM/client-side code)' they
+	 * would cause an error while the server parses the component
+	 * 
+	 * to avoid such errors, make sure the calls for client-side JS code
+	 * are avoided on the server; wrap the statements that use document(DOM/client-side code)
+	 * in window check to support server-side rendering
+	 * 
 	 */
-	let canvas = document.createElement('canvas');
-	canvas.setAttribute('id', styles.canvas);
-	canvas.setAttribute('width', 600);
-	canvas.setAttribute('height', 600);
+	if (typeof window !== 'undefined') {
+		/**
+		 * create and store the canvas element
+		 */
+		canvas = document.createElement('canvas');
+		canvas.setAttribute('id', styles.canvas);
+		canvas.setAttribute('width', 600);
+		canvas.setAttribute('height', 600);
+	}
 
 	/**
 	 * get and store the canvas context and radius
 	 */
-	let canvasContext = canvas.getContext('2d');
-	let radius = canvas.height / 2;
+	let canvasContext = canvas ? canvas.getContext('2d') : null;
+	let radius = canvas ? canvas.height / 2 : 0;
 
 	/**
 	 * fucntion to draw the face of the clock
@@ -128,6 +146,13 @@ export default function AnalogClock() {
 		drawHand(seconds, radius * 0.9, radius * 0.02);
 	};
 
+	/**
+	 * function to stroke (draw) the hands of the clock
+	 * 
+	 * @param {Number} angle : angle with which the context is to be rotated
+	 * @param {Number} length : length of the hand to be drawn
+	 * @param {Number} width : size of the hand to be drawn
+	 */
 	const drawHand = (angle, length, width) => {
 		canvasContext.beginPath();
 		canvasContext.lineWidth = width;
