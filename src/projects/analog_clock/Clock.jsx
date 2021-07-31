@@ -108,6 +108,38 @@ export default function AnalogClock() {
 	};
 
 	/**
+	 * function to place the hands on the clock
+	 * and start the movement
+	 */
+	const drawClockHands = () => {
+		let time = new Date();
+
+		let hours = time.getHours();
+		let minutes = time.getMinutes();
+		let seconds = time.getSeconds();
+
+		hours %= 12;
+
+		hours = (hours * Math.PI / 6) + (minutes * Math.PI / 6 * 60) + (seconds * Math.PI / 6 * 60 * 60);
+		drawHand(hours, radius * 0.5, radius * 0.07);
+		minutes = (minutes * Math.PI / 30) + (seconds * Math.PI / 30 * 60);
+		drawHand(minutes, radius * 0.8, radius * 0.07);
+		seconds = seconds * Math.PI / 30;
+		drawHand(seconds, radius * 0.9, radius * 0.02);
+	};
+
+	const drawHand = (angle, length, width) => {
+		canvasContext.beginPath();
+		canvasContext.lineWidth = width;
+		canvasContext.lineCap = 'round';
+		canvasContext.moveTo(0, 0);
+		canvasContext.rotate(angle);
+		canvasContext.lineTo(0, -length);
+		canvasContext.stroke();
+		canvasContext.rotate(-angle);
+	};
+
+	/**
 	 * init method to start the operations on the canvas
 	 */
 	const init = () => {
@@ -131,6 +163,11 @@ export default function AnalogClock() {
 		 * draw the clock numbers
 		 */
 		drawClockNumbers();
+
+		/**
+		 * draw and move the hands
+		 */
+		drawClockHands();
 	};
 
 	/**
