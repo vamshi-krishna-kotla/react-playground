@@ -84,8 +84,11 @@ module.exports = (env) => {
 					 * @returns appropriate loader configuration object
 					 * with options that work for CSS modules and direct CSS imports
 					 * 
+					 * @note the "use" property is set up by default to work for developement mode here
+					 * production mode configuration is applied when this property is overwritten
+					 * based on the env.dev value
 					 */
-					use: ({resource}) => {
+					use: ({ resource }) => {
 						/**
 						 * flag that is set based on the (SCSS) file, if it is
 						 * a '<name>.module.scss' or '<name>.scss', based on the usage for
@@ -100,7 +103,7 @@ module.exports = (env) => {
 								 * 	using style tag (easy for dev)
 								 * 
 								 */
-								loader: 'style-loader'
+								loader: 'style-loader',
 							},
 							{
 								// loader to convert SASS to CSS
@@ -138,8 +141,8 @@ module.exports = (env) => {
 										localIdentName: '[name]__[local]___[hash:base64:5]'
 									}
 								} :
-								// pass empty "options" object for styles used normally, unlike CSS modules
-								{}
+									// pass empty "options" object for styles used normally, unlike CSS modules
+									{}
 							},
 							// loader to parse through SASS code
 							'sass-loader'
@@ -197,7 +200,7 @@ module.exports = (env) => {
 		/**
 		 * configurations for webpack-dev-server
 		 */
-		webpackConfig['devServer'] = 
+		webpackConfig['devServer'] =
 		{
 			port: 8000,
 			historyApiFallback: {
@@ -221,11 +224,18 @@ module.exports = (env) => {
 		 * to avoid the error using MiniCSSExtractPlugin in production mode
 		 * 1. exclude the compilation of <name>.module.scss in /\.scss$/ rule
 		 * 	- avoid compiling CSS modules in base SCSS rule
-		 * 2. add a new rule to compile the <name>.module.scss to the config
+		 * 2. overwrite the "use" set-up (which are configured for development environment by default)
+		 * 	- replace the "use" property with an object supported for production mode for CSS
+		 * 3. add a new rule to compile the <name>.module.scss to the config
 		 * 	- compile the CSS modules, avoided by base SCSS rule, with right
 		 * 	'modules' options
 		 */
 		webpackConfig.module.rules[1]['exclude'] = /\.module\.scss$/;
+		webpackConfig.module.rules[1]['use'] = [
+			MiniCSSExtractPlugin.loader,
+			'css-loader',
+			'sass-loader'
+		];
 		webpackConfig.module.rules.push({
 			test: /\.module\.scss$/,
 			use: [
