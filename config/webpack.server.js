@@ -1,5 +1,15 @@
 const path = require('path');
 
+// required webpack plugins
+/**
+ * @note
+ * we need MiniCSSExtractPlugin plugin on server-side for CSS modules
+ * as these modules work with dynamically generated, hashed
+ * CSS element selectors, we them to be parsed on server-side to place
+ * the right selectors in the JSX of the components
+ */
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+
 /**
  * this webpack configuration is to support bundling on the server-side
  * as we are working with ES6 imports and other new JS syntaxes, we
@@ -40,9 +50,41 @@ module.exports = (env) => {
 				{
 					test: /\.scss$/,
 					/**
-					 * ignore bundling CSS code for server
+					 * ignore bundling regular CSS code for server
 					 */
-					use: 'ignore-loader'
+					use: 'ignore-loader',
+					exclude: /\.module\.scss$/
+				},
+				{
+					test: /\.module\.scss$/,
+					/**
+					 * @note
+					 * we need the CSS modules to be parsed on server-side unlike the regular CSS
+					 * 
+					 * regular CSS has hardcoded element selectors in the stylesheets
+					 * and are referenced in hardcoded format in JSX of the components
+					 * e.g. <div id="hardCodedId" className="hardCodedClassValue"></div>
+					 * 
+					 * CSS modules are used when we hash the selector references
+					 * and access them in the JSX via the 'styles' object
+					 * hence, these selectors need to be parsed not only for client-side
+					 * but also for server-side, as the server-side rendered HTML
+					 * should be having the respective hashed selectors
+					 * 
+					 * Note that the bundling config is the same as used on client side
+					 */
+					use: [
+						MiniCSSExtractPlugin.loader,
+						{
+							loader: 'css-loader',
+							options: {
+								modules: {
+									localIdentName: '[hash:base64:7]'
+								}
+							}
+						},
+						'sass-loader'
+					]
 				},
 				{
 					test: /\.png/,
@@ -63,5 +105,10 @@ module.exports = (env) => {
 				}
 			]
 		},
+		plugins: [
+			new MiniCSSExtractPlugin({
+				filename: 'styles/[name].[contenthash].css',
+			}),
+		]
 	};
 }
