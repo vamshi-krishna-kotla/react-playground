@@ -6,7 +6,9 @@
   "scripts": {
     "build:client": "webpack --mode production --env BUILD_ENV=client",
     "build:server": "webpack --mode production --env BUILD_ENV=server",
-    "serve:client": "webpack serve --mode development --env BUILD_ENV=client dev"
+    "build": "npm run build:client && npm run build:server",
+    "serve:client": "webpack serve --mode development --env BUILD_ENV=client dev",
+    "start": "node .bin/www"
   },
   "repository": {
     "type": "git",
