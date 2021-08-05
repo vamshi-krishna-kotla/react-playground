@@ -5,36 +5,12 @@ import styles from './Clock.module.scss';
 
 export default function AnalogClock() {
 
+	/**
+	 * initialize memory for canvas, context and radius
+	 */
 	let canvas = null;
-
-	/**
-	 * 
-	 * @note
-	 * the components are parsed on the server to achieve server-side rendering
-	 * 
-	 * if there are calls for 'document(DOM/client-side code)' they
-	 * would cause an error while the server parses the component
-	 * 
-	 * to avoid such errors, make sure the calls for client-side JS code
-	 * are avoided on the server; wrap the statements that use document(DOM/client-side code)
-	 * in window check to support server-side rendering
-	 * 
-	 */
-	if (typeof window !== 'undefined') {
-		/**
-		 * create and store the canvas element
-		 */
-		canvas = document.createElement('canvas');
-		canvas.setAttribute('id', styles.canvas);
-		canvas.setAttribute('width', 600);
-		canvas.setAttribute('height', 600);
-	}
-
-	/**
-	 * get and store the canvas context and radius
-	 */
-	let canvasContext = canvas ? canvas.getContext('2d') : null;
-	let radius = canvas ? canvas.height / 2 : 0;
+	let canvasContext = null;
+	let radius = 0;
 
 	/**
 	 * fucntion to draw the face of the clock
@@ -213,8 +189,13 @@ export default function AnalogClock() {
 	 * after the component is mounted
 	 */
 	useEffect(() => {
-		// append the canvas to the DOM
-		document.querySelector('#analog-clock').append(canvas);
+
+		/**
+		 * get and store the canvas, context and radius
+		 */
+		canvas = document.querySelector(`#${styles.canvas}`);
+		canvasContext = canvas.getContext('2d');
+		radius = canvas.height / 2;
 
 		// init the canvas operations
 		init();
@@ -230,6 +211,7 @@ export default function AnalogClock() {
 
 	return (
 		<div id="analog-clock">
+			<canvas id={styles.canvas} width='600' height='600' ></canvas>
 		</div>
 	);
 }
