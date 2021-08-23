@@ -197,19 +197,6 @@ module.exports = (env) => {
 	// modifying the configuration based on environment
 	if (env.dev) {
 		// entering this block implies compilation is in DEVELOPMENT mode
-		/**
-		 * configurations for webpack-dev-server
-		 */
-		webpackConfig['devServer'] =
-		{
-			port: 8000,
-			historyApiFallback: {
-				rewrites: [
-					{ from: /^\/modules/, to: '/modules.html' },
-					{ from: /^\/projects/, to: '/projects.html' },
-				]
-			},
-		}
 	}
 	else {
 		// entering this block implies compilation is in PRODUCTION mode

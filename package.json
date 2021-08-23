@@ -7,7 +7,6 @@
     "build:client": "webpack --mode production --env BUILD_ENV=client",
     "build:server": "webpack --mode production --env BUILD_ENV=server",
     "build": "npm run build:client && npm run build:server",
-    "serve:client": "webpack serve --mode development --env BUILD_ENV=client dev",
     "start": "node .bin/www"
   },
   "repository": {
@@ -23,7 +22,8 @@
   "homepage": "https://github.com/vamshi-krishna-kotla/react-playground#readme",
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -40,7 +40,6 @@
     "sass-loader": "^12.0.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-cli": "^4.7.0"
   }
 }
