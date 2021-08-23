@@ -62,8 +62,7 @@ app.get('/projects', (req, res) => {
 			res.status(500).send(err).end();
 		}
 		else {
-			var response = data.replace('<div id="root"></div>',`<div id="root">${renderToString(<ProjectsApp />)}</div>`);
-			res.send(response);
+			res.send(data);
 		}
 	})
 });
