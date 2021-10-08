@@ -20,7 +20,6 @@ import { renderToString } from 'react-dom/server';
  * import and rename the default exports from respective target React Components
  */
 import { default as ModulesApp } from '../src/modules/App.jsx';
-import { default as ProjectsApp } from '../src/projects/App.jsx';
 
 /**
  * enable express server
@@ -47,6 +46,11 @@ app.get('/modules', (req, res) => {
 			res.status(500).send(err).end();
 		}
 		else {
+			/**
+			 * enabling server-side rendering for modules path
+			 * 
+			 * @note we do not have any routing for modules yet
+			 */
 			var response = data.replace('<div id="root"></div>',`<div id="root">${renderToString(<ModulesApp />)}</div>`);
 			res.send(response);
 		}
@@ -62,6 +66,13 @@ app.get('/projects', (req, res) => {
 			res.status(500).send(err).end();
 		}
 		else {
+			/**
+			 * server-side rendering is not supported for projects module
+			 * as it is conflicting with the client-side routing
+			 * 
+			 * returning the template plainly without any server-side rendered
+			 * text from any React components
+			 */
 			res.send(data);
 		}
 	})
