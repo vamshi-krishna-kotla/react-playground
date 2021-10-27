@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:client": "webpack --mode production --env BUILD_ENV=client",
-    "build:server": "webpack --mode production --env BUILD_ENV=server",
+    "build:client": "webpack --env BUILD_ENV=client",
+    "build:server": "webpack --env BUILD_ENV=server",
     "build": "npm run build:client && npm run build:server",
     "start": "node .bin/www"
   },

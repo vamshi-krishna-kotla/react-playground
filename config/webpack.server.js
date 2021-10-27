@@ -24,6 +24,10 @@ module.exports = (env) => {
 		entry: {
 			'www': './server/app.js'
 		},
+		/**
+		 * decide the mode of compilation based on the 'dev' env passed from command
+		 */
+		mode: env.dev ? 'development' : 'production',
 		output: {
 			path: path.resolve(__dirname, '../', '.bin'),
 			filename: '[name]',

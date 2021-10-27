@@ -31,6 +31,10 @@ module.exports = (env) => {
 			'modules': './src/modules/index.js',
 			'projects': './src/projects/index.js'
 		},
+		/**
+		 * decide the mode of compilation based on the 'dev' env passed from command
+		 */
+		mode: env.dev ? 'development' : 'production',
 		output: {
 			/**
 			 * cannot hardcode the output path as it takes the
