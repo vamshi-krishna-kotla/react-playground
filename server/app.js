@@ -36,13 +36,18 @@ app.use(express.json());
 /**
  * serve static assets from 'dist' folder
  * which are generated after building client-side code
+ * 
+ * @note using regex to serve static assets as each route has own configuration
+ * and the static assets need to be served for all routes
  */
-app.use(express.static(path.resolve(__dirname, '../dist')));
+app.use(/\/([a-z]+)/,express.static(path.resolve(__dirname, '../dist')));
 
 /**
  * enable GET route(s) to serve 'modules' App
+ * 
+ * @note regex for the routes that satisfy /modules and /modules/<route> paths
  */
-app.get('/modules/*', (req, res) => {
+app.get(/^\/modules(\/[a-z]*)?([^\/])?$/, (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../dist/modules.html'), 'utf8', (err, data) => {
 		if (err) {
 			res.status(500).send(err).end();
@@ -67,8 +72,10 @@ app.get('/modules/*', (req, res) => {
 
 /**
  * enable GET route(s) to serve 'projects' App
+ * 
+ * @note regex for the routes that satisfy /projects and /projects/<route> paths
  */
-app.get('/projects/*', (req, res) => {
+app.get(/^\/projects(\/[a-z]*)?([^\/])?$/, (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../dist/projects.html'), 'utf8', (err, data) => {
 		if (err) {
 			res.status(500).send(err).end();
