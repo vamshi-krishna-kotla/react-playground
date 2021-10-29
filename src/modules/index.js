@@ -1,5 +1,6 @@
 import React from 'react';
 import { hydrate, render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
 
@@ -29,5 +30,7 @@ let root = document.getElementById('root');
  * Note: this is basically to avoid an error, occuring when calling
  * "hydrate" in development mode where there is no content in the
  * root element
+ * 
+ * Adding in BrowserRouter for routing (visit projects/index.js for more info)
  */
-root.children[0] ? hydrate(<App />, root) :	render(<App />, root);
+root.children[0] ? hydrate(<BrowserRouter><App /></BrowserRouter>, root) : render(<BrowserRouter><App /></BrowserRouter>, root);

@@ -15,11 +15,13 @@ import fs from 'fs';
  */
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
 
 /**
  * import and rename the default exports from respective target React Components
  */
 import { default as ModulesApp } from '../src/modules/App.jsx';
+import { default as ProjectsApp } from '../src/projects/App.jsx';
 
 /**
  * enable express server
@@ -38,11 +40,11 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
 /**
- * enable GET route to serve 'modules' App
+ * enable GET route(s) to serve 'modules' App
  */
-app.get('/modules', (req, res) => {
+app.get('/modules/*', (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../dist/modules.html'), 'utf8', (err, data) => {
-		if(err) {
+		if (err) {
 			res.status(500).send(err).end();
 		}
 		else {
@@ -51,29 +53,45 @@ app.get('/modules', (req, res) => {
 			 * 
 			 * @note we do not have any routing for modules yet
 			 */
-			var response = data.replace('<div id="root"></div>',`<div id="root">${renderToString(<ModulesApp />)}</div>`);
+			var response = data.replace('<div id="root"></div>', `<div id="root">
+			${renderToString(
+				<StaticRouter location={req.url} >
+					<ModulesApp />
+				</StaticRouter>)
+				}
+			</div>`);
 			res.send(response);
 		}
 	})
 });
 
 /**
- * enable GET route to serve 'projects' App
+ * enable GET route(s) to serve 'projects' App
  */
-app.get('/projects', (req, res) => {
+app.get('/projects/*', (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../dist/projects.html'), 'utf8', (err, data) => {
-		if(err) {
+		if (err) {
 			res.status(500).send(err).end();
 		}
 		else {
-			/**
-			 * server-side rendering is not supported for projects module
-			 * as it is conflicting with the client-side routing
-			 * 
-			 * returning the template plainly without any server-side rendered
-			 * text from any React components
-			 */
-			res.send(data);
+			var response = data.replace('<div id="root"></div>', `<div id="root">
+			${renderToString(
+				/**
+				 * StaticRouter component should be the wrapper around the parent component
+				 * sent for server-side rendering the HTML of the appilcation
+				 * 
+				 * This works hand-in-hand with BrowserRouter on client-side
+				 * 
+				 * StaticRouter configures the route which is required to render the
+				 * relevant component for that route; BrowserRouter picks up this route
+				 * from the client-side
+				 */
+				<StaticRouter location={req.url} >
+					<ProjectsApp />
+				</StaticRouter>)
+				}
+			</div>`);
+			res.send(response);
 		}
 	})
 });
