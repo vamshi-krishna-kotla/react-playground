@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * import required components for react client-side routing
  */
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 
 import AnalogClock from './analog_clock/Clock.jsx';
@@ -18,20 +18,18 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<BrowserRouter>
-					<NavBar />
-					<Switch>
-						<Route path="/projects" exact>
-							<h1>Home page</h1>
-						</Route>
-						<Route path="/projects/quotes" exact>
-							<Quotes />
-						</Route>
-						<Route path="/projects/clock" exact>
-							<AnalogClock />
-						</Route>
-					</Switch>
-				</BrowserRouter>
+				<NavBar />
+				<Switch>
+					<Route path="/projects" exact>
+						<h1>Home page</h1>
+					</Route>
+					<Route path="/projects/quotes" exact>
+						<Quotes />
+					</Route>
+					<Route path="/projects/clock" exact>
+						<AnalogClock />
+					</Route>
+				</Switch>
 			</div>
 		);
 	};
