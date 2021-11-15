@@ -61,7 +61,7 @@ module.exports = (env) => {
 		 *
 		 * about target : https://webpack.js.org/blog/2020-10-10-webpack-5-release/#improved-target
 		 */
-		target: "es5", // specifies the target JS build grammar
+		target: "web", // specifies the target JS build grammar
 		module: {
 			rules: [
 				{
