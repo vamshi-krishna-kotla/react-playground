@@ -6,7 +6,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 
-import AnalogClock from './analog_clock/Clock.jsx';
+import AnalogClock from './analog-clock/Clock.jsx';
 import Quotes from './quotes/Quotes.jsx';
 import NavBar from './navbar/NavBar.jsx';
 
