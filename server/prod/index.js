@@ -47,7 +47,7 @@ app.use(/\/([a-z]+)/,express.static(path.resolve(__dirname, '../dist')));
  * 
  * @note regex for the routes that satisfy /modules and /modules/<route> paths
  */
-app.get(/^\/modules(\/[a-z]*)?([^\/])?$/, (req, res) => {
+app.get(/^\/modules(\/[a-z \-]*)?([^\/])?$/i, (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../dist/modules.html'), 'utf8', (err, data) => {
 		if (err) {
 			res.status(500).send(err).end();
@@ -75,7 +75,7 @@ app.get(/^\/modules(\/[a-z]*)?([^\/])?$/, (req, res) => {
  * 
  * @note regex for the routes that satisfy /projects and /projects/<route> paths
  */
-app.get(/^\/projects(\/[a-z]*)?([^\/])?$/, (req, res) => {
+app.get(/^\/projects(\/[a-z \-]*)?([^\/])?$/i, (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../dist/projects.html'), 'utf8', (err, data) => {
 		if (err) {
 			res.status(500).send(err).end();
