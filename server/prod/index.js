@@ -20,8 +20,8 @@ import { StaticRouter } from 'react-router-dom';
 /**
  * import and rename the default exports from respective target React Components
  */
-import { default as ModulesApp } from '../src/modules/App.jsx';
-import { default as ProjectsApp } from '../src/projects/App.jsx';
+import { default as ModulesApp } from '../../src/modules/App.jsx';
+import { default as ProjectsApp } from '../../src/projects/App.jsx';
 
 /**
  * enable express server

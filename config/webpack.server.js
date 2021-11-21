@@ -22,7 +22,7 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 module.exports = (env) => {
 	return {
 		entry: {
-			'www': './server/app.js'
+			'www': './server/prod'
 		},
 		/**
 		 * decide the mode of compilation based on the 'dev' env passed from command
