@@ -53,40 +53,48 @@ const watcher = compiler.watch({
 	}
 });
 
-// route for bundled client JS files
-app.get('/scripts/:file', (req, res) => {
-	fs.readFile(path.resolve(__dirname, '../dist/scripts/'+req.params.file), 'utf8', (err, data) => {
-		if (err) {
-			res.status(500).send(err).end();
-		}
-		else {
-			res.send(data);
-		}
-	});
-});
-app.get('/*/scripts/:file', (req, res) => {
-	fs.readFile(path.resolve(__dirname, '../dist/scripts/'+req.params.file), 'utf8', (err, data) => {
-		if (err) {
-			res.status(500).send(err).end();
-		}
-		else {
-			res.send(data);
-		}
-	});
-});
-
 /**
- * @note we are sending the bundled JS file from memfs for scripts
- * but sending the images directly from the src folder as images are not compiled
- * and need to be sent as files directly
+ * 
+ * @param {Object} req request object from client
+ * @param {Object} res response object to client
+ * 
+ * handler function to send output files that include
+ * - compiled JS file that have embedded CSS in them (using style-loader for dev env)
+ * - static images
  */
+const responseFunction = (req, res) => {
+	/**
+	 * we are sending the bundled JS file from memfs for scripts
+	 * but sending the images directly from the src folder as images are not compiled
+	 * and need to be sent as files directly
+	 */
+	if (req.path.indexOf('/scripts') > -1) {
+		console.log(req.path);
+		fs.readFile(path.resolve(__dirname, '../dist/scripts/' + req.params.file), 'utf8', (err, data) => {
+			if (err) {
+				res.status(500).send(err).end();
+			}
+			else {
+				res.send(data);
+			}
+		});
+	}
+	else if (req.path.indexOf('/images') > -1) {
+		res.sendFile(path.resolve(__dirname, '../src/images/' + req.params.file))
+	}
+};
 
-// route for images to be sent to the client
-app.get('/images/:file', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../src/images/'+req.params.file))
-});
-app.get('/*/images/:file', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../src/images/'+req.params.file))
+// possible routes available to fetch scripts and images
+const routes = [
+	'/scripts/:file',
+	'/*/scripts/:file',
+	'/images/:file',
+	'/*/images/:file'
+];
+
+// set the handler up for webpack output
+routes.forEach(route => {
+	app.get(route, responseFunction);
 });
 
 // route to send modules HTML file
