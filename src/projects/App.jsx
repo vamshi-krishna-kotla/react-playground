@@ -9,6 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import AnalogClock from './analog-clock/Clock.jsx';
 import NavBar from './navbar/NavBar.jsx';
 import Quotes from './quotes/Quotes.jsx';
+import SpeechText from './speech-text/SpeechText.jsx';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -28,6 +29,9 @@ export default class App extends React.Component {
 					</Route>
 					<Route path="/projects/clock" exact>
 						<AnalogClock />
+					</Route>
+					<Route path="/projects/speech-text">
+						<SpeechText />
 					</Route>
 				</Switch>
 			</div>

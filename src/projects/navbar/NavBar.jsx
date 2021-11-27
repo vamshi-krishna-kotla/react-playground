@@ -7,6 +7,7 @@ export default function () {
 			<Link to="/projects">Home</Link>
 			<Link to="/projects/quotes">Quotes</Link>
 			<Link to="/projects/clock">Clock</Link>
+			<Link to="/projects/speech-text">Speech {'<->'} Text</Link>
 		</div>
 	);
 };
