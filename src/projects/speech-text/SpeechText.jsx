@@ -28,11 +28,7 @@ export default function SpeechText() {
 					for '/' path (overall '/projects/speech-text/')
 				*/}
 				<Route path={path} exact>
-					<h1>Select a link</h1>
-					<div className="routes">
-						<Link to={`${url}/text-to-speech`}>Text {'->'} Speech</Link>
-						<Link to={`${url}/speech-to-text`}>Speech {'->'} Text</Link>
-					</div>
+					<DefaultComp url={url} />
 				</Route>
 				{/* 
 					for '/<route>' path (overall '/projects/speech-text/<route>')
@@ -41,7 +37,7 @@ export default function SpeechText() {
 					{/*
 						component to render the required sub-component based on the "route"  variable
 					*/}
-					<SelectComp />
+					<SelectedComponent url={url} />
 				</Route>
 			</Switch>
 		</div>
@@ -50,9 +46,26 @@ export default function SpeechText() {
 
 /**
  * 
+ * @param {Object} props
+ * @returns template for default display of selection for speech-tex feature
+ */
+function DefaultComp(props) {
+	return (
+		<div>
+			<h1>Select a link</h1>
+			<div className="routes">
+				<Link to={`${parseUrl(props.url)}/text-to-speech`}>Text {'->'} Speech</Link>
+				<Link to={`${parseUrl(props.url)}/speech-to-text`}>Speech {'->'} Text</Link>
+			</div>
+		</div>
+	);
+}
+
+/**
+ * 
  * @returns React component based on the 'route' param
  */
-function SelectComp() {
+function SelectedComponent(props) {
 	/**
 	 * @note "route" is not a default return value from the useParams() function
 	 * any name can be used but the same name should be used in the <Route /> instance
@@ -69,5 +82,21 @@ function SelectComp() {
 	 * "someRandomName" is the var for the actual route on the browser
 	 */
 	let { route } = useParams();
-	return route === 'speech-to-text' ? <SpeechToText /> : <TextToSpeech />
+	if (route === 'speech-to-text') {
+		return <SpeechToText />;
+	}
+	else if (route === 'text-to-speech') {
+		return <TextToSpeech />;
+	}
+	return (
+		<div>
+			<DefaultComp url={props.url}/>
+		</div>
+	);
+}
+
+// function to remove the '/' at the end of the path for routing
+const parseUrl = function (url) {
+	let length = url.length;
+	return (url.charAt(length - 1) === '/') ? url.slice(0, length - 1) : url;
 }
