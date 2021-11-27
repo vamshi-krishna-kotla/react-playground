@@ -37,10 +37,17 @@ app.use(express.json());
  * serve static assets from 'dist' folder
  * which are generated after building client-side code
  * 
- * @note using regex to serve static assets as each route has own configuration
- * and the static assets need to be served for all routes
+ * @note static assets need to be served for all routes
+ * since the static asset configuration is not configured for any particular path,
+ * the dist folder will be directly served under "/" path of the server
+ * 
+ * the reference for the static assets should be directly from the "/" path for any path
+ * this is configured but the "webpackConfig.output.publicPath" property
+ * (which is also used by the html-webpack-plugin)
+ * 
+ * ref: https://stackoverflow.com/questions/34620628/htmlwebpackplugin-injects-relative-path-files-which-breaks-when-loading-non-root
  */
-app.use(/\/([a-z]+)/,express.static(path.resolve(__dirname, '../dist')));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
 /**
  * enable GET route(s) to serve 'modules' App
