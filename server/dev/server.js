@@ -18,8 +18,12 @@ const { fs } = require('memfs');
 // instantiate server object
 const app = express();
 
+/**
+ * @note using route configuration from /server/prod/index.js
+ */
+
 // route to send 'modules' HTML file
-app.get(/^\/modules(\/[a-z \-]*)?([^\/])?$/i, (req, res) => {
+app.get(/^\/modules((\/[a-z \-]*)?([\/])?)*$/i, (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../../dist/modules.html'), 'utf8', (err, data) => {
 		if (err) {
 			res.status(500).send(err).end();
@@ -31,7 +35,7 @@ app.get(/^\/modules(\/[a-z \-]*)?([^\/])?$/i, (req, res) => {
 });
 
 // route to send 'projects' HTML file
-app.get(/^\/projects(\/[a-z \-]*)?([^\/])?$/i, (req, res) => {
+app.get(/^\/projects((\/[a-z \-]*)?([\/])?)*$/i, (req, res) => {
 	fs.readFile(path.resolve(__dirname, '../../dist/projects.html'), 'utf8', (err, data) => {
 		if (err) {
 			res.status(500).send(err).end();
