@@ -19,10 +19,13 @@ export default class QuotesComp extends Component {
 	};
 
 	generateNewQuote = () => {
+		let quoteOutput;
 		let newReq = new XMLHttpRequest();
 		newReq.onload = () => {
+			quoteOutput = JSON.parse(newReq.response);
 			this.setState({
-				quoteOutput: JSON.parse(newReq.response).content
+				quote: quoteOutput.content,
+				author: quoteOutput.author
 			});
 		};
 		newReq.open('GET', 'https://api.quotable.io/random');
@@ -36,7 +39,8 @@ export default class QuotesComp extends Component {
 				<p>Hit the button below to get a random quote</p>
 				<button onClick={this.generateNewQuote}>New Quote</button>
 				<div>
-					<h2>{this.state.quoteOutput}</h2>
+					<h2>{ this.state.quote ? this.state.quote : '' }</h2>
+					<h3>{ this.state.author ? '- ' + this.state.author : '' }</h3>
 				</div>
 			</div>
 		);
