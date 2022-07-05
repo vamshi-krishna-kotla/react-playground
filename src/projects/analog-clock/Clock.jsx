@@ -210,7 +210,7 @@ export default function AnalogClock() {
 		[]);
 
 	return (
-		<div id="analog-clock">
+		<div id={styles["analog-clock"]}>
 			<canvas id={styles.canvas} width='600' height='600' ></canvas>
 		</div>
 	);

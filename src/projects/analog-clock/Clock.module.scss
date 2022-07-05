@@ -1,3 +1,10 @@
-#canvas {
-	border: 0.5px solid black;
+#analog-clock {
+	display: flex;
+	justify-content: center;
+	margin-top: 3rem;
+
+	#canvas {
+		border: 0.5px solid black;
+		border-radius: 50%;
+	}
 }

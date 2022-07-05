@@ -43,6 +43,6 @@ module.exports.responseFunction = (req, res) => {
 		});
 	}
 	else if (req.path.indexOf('/images') > -1) {
-		res.sendFile(path.resolve(__dirname, '../../src/images/' + req.params.file))
+		res.sendFile(path.resolve(__dirname, '../../src/images/' + req.params.file));
 	}
 };
