@@ -1,3 +1,32 @@
 #quote-generator {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	text-align: center;
+
+	.new-quote-btn {
+		cursor: pointer;
+		font-size: 1rem;
+        transition-duration: 0.1s;
+        padding: 1rem 2rem;
+        -webkit-transition-duration: 0.1s;
+        -o-transition-duration: 0.1s;
+        -moz-transition-duration: 0.1s;
+
+        &:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        &:hover {
+            box-shadow: 1px 1px 0.5rem 1px rgba($color: black, $alpha: 0.5);
+        }
+	}
+
+    .quote-container {
+        margin: 4rem;
+        transition-duration: 0.25s;
+    }
 }

@@ -6,7 +6,7 @@ export default class QuotesComp extends Component {
 	/**
 	 * declare the initial state
 	 */
-	state = {};
+	state = { visibility: true };
 
 	/**
 	 * 
@@ -25,20 +25,29 @@ export default class QuotesComp extends Component {
 			quoteOutput = JSON.parse(newReq.response);
 			this.setState({
 				quote: quoteOutput.content,
-				author: quoteOutput.author
+				author: quoteOutput.author,
+				visibility: true
 			});
 		};
-		newReq.open('GET', 'https://api.quotable.io/random');
-		newReq.send();
+		this.setState({ visibility: false }, () => {
+			newReq.open('GET', 'https://api.quotable.io/random');
+			newReq.send();
+		});
 	}
 
 	render() {
 		return (
 			<div id={styles["quote-generator"]}>
-				<h1>Quote for the day</h1>
-				<p>Hit the button below to get a random quote</p>
-				<button onClick={this.generateNewQuote}>New Quote</button>
-				<div>
+				<h1>Feed your mind</h1>
+				<p>Hit the button below to get a quote</p>
+				<button
+					className={styles["new-quote-btn"]}
+					onClick={this.generateNewQuote}
+					disabled={this.state.visibility ? false : 'disabled'}
+				>
+					New Quote
+				</button>
+				<div className={styles["quote-container"]} style={{ opacity: (this.state.visibility ? 1 : 0) }}>
 					<h2>{ this.state.quote ? this.state.quote : '' }</h2>
 					<h3>{ this.state.author ? '- ' + this.state.author : '' }</h3>
 				</div>

@@ -5,6 +5,8 @@ import React from 'react';
  */
 import { Route, Switch } from 'react-router-dom';
 
+// global styles
+import './App.scss';
 
 import AnalogClock from './analog-clock/Clock.jsx';
 import NavBar from './navbar/NavBar.jsx';
