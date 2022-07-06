@@ -54,8 +54,8 @@ function DefaultComp(props) {
 		<div>
 			<h1>Select a link</h1>
 			<div className="routes">
-				<Link to={`${parseUrl(props.url)}/text-to-speech`}>Text {'->'} Speech</Link>
-				<Link to={`${parseUrl(props.url)}/speech-to-text`}>Speech {'->'} Text</Link>
+				<Link to={`${parseUrl(props.url)}/text-to-speech`}>Text &#8594; Speech</Link>
+				<Link to={`${parseUrl(props.url)}/speech-to-text`}>Speech &#8594; Text</Link>
 			</div>
 		</div>
 	);

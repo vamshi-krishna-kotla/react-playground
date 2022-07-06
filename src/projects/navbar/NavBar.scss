@@ -1,0 +1,27 @@
+.navBar {
+    align-items: center;
+    border-bottom: 1px solid gray;
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: space-around;
+    padding: 1rem 0;
+
+    a {
+        text-decoration: none;
+        color: blue;
+        transition-duration: 0.25s;
+        padding: 1rem 2rem;
+        -webkit-transition-duration: 0.25s;
+        -o-transition-duration: 0.25s;
+        -moz-transition-duration: 0.25s;
+
+        &:hover {
+            box-shadow: 1px 1px 1rem 1px rgba($color: black, $alpha: 0.5);
+        }
+
+        &:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+    }
+}
