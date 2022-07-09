@@ -10,9 +10,42 @@
         align-items: center;
         display: flex;
         justify-content: space-around;
+
+        .input-container {
+            #input-text-container {
+                font-family: sans-serif;
+            }
+        }
+
+        .settings-container {
+            .pitch-setting {
+                #pitch {
+                    display: inline;
+                }
+            }
+            .rate-setting {
+                #rate {
+                    display: inline;
+                }
+            }
+            .clear-input-setting {
+                #clear-input {
+                    display: inline;
+                }
+            }
+        }
     }
 
     .speak-btn-container {
+        margin: 2rem 0;
         text-align: center;
+
+        .speak-btn {
+            background-color: rgba($color: blue, $alpha: 0.75);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            padding: 1rem 2rem;
+        }
     }
 }

@@ -5,8 +5,18 @@
 
 import React, { Component } from "react";
 
+/**
+ * @note whenever we use CSS modules, the JS gives the corresponding className or ID (selector) to the element
+ * if that selector is found in the module.stylesheet file
+ * 
+ * if the selector is not found appropriately in the module.stylesheet file then there is no
+ * selector attribute given accordingly and hence that value cannot be used
+ * 
+ * JS <-> module CSS
+ * the value need to be present in the CSS file for sure
+ * for it to be assigned to the component and used
+ */
 import styles from './TextToSpeech.module.scss';
-
 
 export default class TextToSpeech extends Component {
 	constructor(props) {
@@ -25,13 +35,13 @@ export default class TextToSpeech extends Component {
 		 * basically they are utilities and need not be monitored, hence not stored
 		 * on the state
 		 */
-		this.inputTextContainer = document.querySelector('#input-text-container');
+		this.inputTextContainer = document.querySelector(`#${styles["input-text-container"]}`);
 		this.speechObj = new SpeechSynthesisUtterance();
 
 		// store the required elements
-		const pitchElement = document.querySelector('input#pitch');
-		const rateElement = document.querySelector('input#rate');
-		const clearInputElement = document.querySelector('input#clear-input');
+		const pitchElement = document.querySelector(`input#${styles["pitch"]}`);
+		const rateElement = document.querySelector(`input#${styles["rate"]}`);
+		const clearInputElement = document.querySelector(`input#${styles["clear-input"]}`);
 
 		// set the "pitch" value everytime it changes
 		pitchElement.onchange = () => {
@@ -103,19 +113,19 @@ export default class TextToSpeech extends Component {
 			<div id={styles["text-to-speech"]}>
 				<h1 className={styles.title}>Convert Text to Speech</h1>
 				<div className={styles["main-container"]}>
-					<div className="input-container">
+					<div className={styles["input-container"]}>
 						<textarea
 							name="text"
-							id="input-text-container"
+							id={styles["input-text-container"]}
 							cols="30"
 							rows="10"
 							defaultValue="this is a test"
 						></textarea>
 					</div>
-					<div className="settings-container">
-						<div className="pitch-setting">
+					<div className={styles["settings-container"]}>
+						<div className={styles["pitch-setting"]}>
 							<label htmlFor="pitch">Pitch</label>
-							<span className="pitch-value">{this.state.pitch}</span>
+							<span className={styles["pitch-value"]}>{this.state.pitch}</span>
 							<input
 								type="range"
 								defaultValue="1"
@@ -123,12 +133,12 @@ export default class TextToSpeech extends Component {
 								max="2"
 								step="0.1"
 								name="pitch"
-								id="pitch"
+								id={styles["pitch"]}
 							/>
 						</div>
-						<div className="rate-setting">
+						<div className={styles["rate-setting"]}>
 							<label htmlFor="rate">Rate</label>
-							<span className="rate-value">{this.state.rate}</span>
+							<span className={styles["rate-value"]}>{this.state.rate}</span>
 							<input
 								type="range"
 								defaultValue="1"
@@ -136,22 +146,22 @@ export default class TextToSpeech extends Component {
 								step="0.1"
 								max="3"
 								name="rate"
-								id="rate"
+								id={styles["rate"]}
 							/>
 						</div>
-						<div className="clear-input-setting">
+						<div className={styles["clear-input-setting"]}>
 							<label htmlFor="clear-input">Clear input after speaking</label>
 							<input
 								type="checkbox"
 								name="clear-input"
-								id="clear-input"
+								id={styles["clear-input"]}
 								defaultChecked={this.state.clear}
 							/>
 						</div>
 					</div>
 				</div>
 				<div className={styles["speak-btn-container"]}>
-					<button className="button" onClick={this.initSpeech}>Speak</button>
+					<button className={styles["speak-btn"] + " button"} onClick={this.initSpeech}>Speak</button>
 				</div>
 			</div>
 		);
