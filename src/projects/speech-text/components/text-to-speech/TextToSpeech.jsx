@@ -28,15 +28,16 @@ export default class TextToSpeech extends Component {
 	// initiatilze the required settings
 	componentDidMount() {
 		/**
-		 * we are storing the input text element and a SpeechSynthesisUtterance instance
-		 * onto the class as they are being used every time we click to speak and the
-		 * values never change
+		 * we are storing the input text element, a SpeechSynthesisUtterance instance and
+		 * a list of voices onto the class as they are being used every time we click to
+		 * speak and the values never change
 		 * 
 		 * basically they are utilities and need not be monitored, hence not stored
 		 * on the state
 		 */
 		this.inputTextContainer = document.querySelector(`#${styles["input-text-container"]}`);
 		this.speechObj = new SpeechSynthesisUtterance();
+		this.voices = [];
 
 		// store the required elements
 		const pitchElement = document.querySelector(`input#${styles["pitch"]}`);
@@ -69,8 +70,25 @@ export default class TextToSpeech extends Component {
 			text: '',
 			pitch: 1,
 			rate: 1,
-			clear: false
+			clear: false,
+			enableConversion: false,
 		});
+
+		/**
+		 * attaching an event listener the window.speechSynthesis.onvoiceschanged event
+		 * to get all the list of voices so that we can set the voices options
+		 * 
+		 * @ref https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
+		 */
+		window.speechSynthesis.addEventListener('voiceschanged', () => {
+			this.voices = window.speechSynthesis.getVoices();
+
+			// set the state to notify that text to speech conversion can now be used
+			this.setState({
+				enableConversion: true
+			});
+		});
+
 	}
 
 	/**
@@ -105,6 +123,24 @@ export default class TextToSpeech extends Component {
 		}, () => {
 			this.speak();
 			this.clearInput();
+		});
+	};
+
+	/**
+	 * method to make the voice option available for selection
+	 * 
+	 * @returns array of <option> elements to populate the voice-selection
+	 */
+	getVoiceOptionElements = () => {
+		return this.voices && this.voices.map(voice => {
+			return <option
+						value={voice.name}
+						data-name={voice.name}
+						data-lang={voice.lang}
+						key={voice.name + voice.lang}
+					>
+						{`${voice.name} (${voice.lang})`}
+					</option>
 		});
 	};
 
@@ -158,10 +194,23 @@ export default class TextToSpeech extends Component {
 								defaultChecked={this.state.clear}
 							/>
 						</div>
+						<div className={styles["voice-selection-container"]}>
+							{
+								this.state.enableConversion ? 
+								<select name="voices" id="voice-selection">
+									{this.getVoiceOptionElements()}
+								</select>
+								: '' 
+							}
+						</div>
 					</div>
 				</div>
 				<div className={styles["speak-btn-container"]}>
-					<button className={styles["speak-btn"] + " button"} onClick={this.initSpeech}>Speak</button>
+					<button
+						className={styles["speak-btn"] + " button"}
+						onClick={this.initSpeech}
+						disabled={!this.state.enableConversion}
+					>Speak</button>
 				</div>
 			</div>
 		);

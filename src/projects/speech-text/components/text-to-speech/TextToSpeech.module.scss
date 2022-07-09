@@ -20,18 +20,21 @@
         .settings-container {
             .pitch-setting {
                 #pitch {
-                    display: inline;
+                    position: relative;
                 }
             }
             .rate-setting {
                 #rate {
-                    display: inline;
+                    position: relative;
                 }
             }
             .clear-input-setting {
                 #clear-input {
-                    display: inline;
+                    position: relative;
                 }
+            }
+            .voice-selection-container {
+                position: relative;
             }
         }
     }
@@ -41,11 +44,18 @@
         text-align: center;
 
         .speak-btn {
-            background-color: rgba($color: blue, $alpha: 0.75);
-            border: none;
-            color: white;
             font-size: 1.25rem;
             padding: 1rem 2rem;
+            background-color: rgba($color: gray, $alpha: 0.25);
+
+            &:not(:disabled) {
+                border: none;
+
+                &:hover {
+                    color: white;
+                    background-color: rgba($color: blue, $alpha: 0.75);
+                }
+            }
         }
     }
 }
