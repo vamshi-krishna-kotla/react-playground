@@ -43,6 +43,7 @@ export default class TextToSpeech extends Component {
 		const pitchElement = document.querySelector(`input#${styles["pitch"]}`);
 		const rateElement = document.querySelector(`input#${styles["rate"]}`);
 		const clearInputElement = document.querySelector(`input#${styles["clear-input"]}`);
+		const voiceSelection = document.querySelector(`select#${styles["voice-selection"]}`);
 
 		// set the "pitch" value everytime it changes
 		pitchElement.onchange = () => {
@@ -65,6 +66,13 @@ export default class TextToSpeech extends Component {
 			});
 		};
 
+		// set the "voice" option whenever there is a new voice selected
+		voiceSelection.onchange = () => {
+			this.setState({
+				voice: this.voices[voiceSelection.selectedIndex]
+			});
+		};
+
 		// set the initial state with defaults
 		this.setState({
 			text: '',
@@ -74,20 +82,41 @@ export default class TextToSpeech extends Component {
 			enableConversion: false,
 		});
 
-		/**
-		 * attaching an event listener the window.speechSynthesis.onvoiceschanged event
-		 * to get all the list of voices so that we can set the voices options
-		 * 
-		 * @ref https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
-		 */
-		window.speechSynthesis.addEventListener('voiceschanged', () => {
-			this.voices = window.speechSynthesis.getVoices();
+		// if the voices list already available then we directly use it
+		let voicesAvailable = window.speechSynthesis.getVoices();
+		if(voicesAvailable.length > 0) {
+			this.voices = voicesAvailable;
 
-			// set the state to notify that text to speech conversion can now be used
+			/**
+			 * set the state to notify that text to speech conversion can now be used
+			 * and set the default voice
+			 */
 			this.setState({
-				enableConversion: true
+				enableConversion: true,
+				voice: this.voices[0]
 			});
-		});
+		}
+		// else we wait for the voices to be available
+		else {
+			/**
+			 * attaching an event listener the window.speechSynthesis.onvoiceschanged event
+			 * to get all the list of voices so that we can set the voices options
+			 *
+			 * @ref https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
+			 */
+			window.speechSynthesis.addEventListener('voiceschanged', () => {
+				this.voices = window.speechSynthesis.getVoices();
+	
+				/**
+				 * set the state to notify that text to speech conversion can now be used
+				 * and set the default voice
+				 */
+				this.setState({
+					enableConversion: true,
+					voice: this.voices[0]
+				});
+			});
+		}
 
 	}
 
@@ -99,6 +128,7 @@ export default class TextToSpeech extends Component {
 		this.speechObj.text = this.state.text;
 		this.speechObj.pitch = this.state.pitch;
 		this.speechObj.rate = this.state.rate;
+		this.speechObj.voice = this.state.voice;
 		window.speechSynthesis.speak(this.speechObj);
 	};
 
@@ -132,7 +162,8 @@ export default class TextToSpeech extends Component {
 	 * @returns array of <option> elements to populate the voice-selection
 	 */
 	getVoiceOptionElements = () => {
-		return this.voices && this.voices.map(voice => {
+		if(!this.state.enableConversion) return [];
+		return this.voices.map(voice => {
 			return <option
 						value={voice.name}
 						data-name={voice.name}
@@ -153,14 +184,14 @@ export default class TextToSpeech extends Component {
 						<textarea
 							name="text"
 							id={styles["input-text-container"]}
-							cols="30"
-							rows="10"
+							cols="45"
+							rows="15"
 							defaultValue="this is a test"
 						></textarea>
 					</div>
 					<div className={styles["settings-container"]}>
 						<div className={styles["pitch-setting"]}>
-							<label htmlFor="pitch">Pitch</label>
+							<label htmlFor="pitch">Pitch : </label>
 							<span className={styles["pitch-value"]}>{this.state.pitch}</span>
 							<input
 								type="range"
@@ -173,7 +204,7 @@ export default class TextToSpeech extends Component {
 							/>
 						</div>
 						<div className={styles["rate-setting"]}>
-							<label htmlFor="rate">Rate</label>
+							<label htmlFor="rate">Rate : </label>
 							<span className={styles["rate-value"]}>{this.state.rate}</span>
 							<input
 								type="range"
@@ -186,7 +217,7 @@ export default class TextToSpeech extends Component {
 							/>
 						</div>
 						<div className={styles["clear-input-setting"]}>
-							<label htmlFor="clear-input">Clear input after speaking</label>
+							<label htmlFor="clear-input">Clear input after speaking : </label>
 							<input
 								type="checkbox"
 								name="clear-input"
@@ -195,13 +226,9 @@ export default class TextToSpeech extends Component {
 							/>
 						</div>
 						<div className={styles["voice-selection-container"]}>
-							{
-								this.state.enableConversion ? 
-								<select name="voices" id="voice-selection">
-									{this.getVoiceOptionElements()}
-								</select>
-								: '' 
-							}
+							<select name="voices" id={styles["voice-selection"]}>
+								{this.getVoiceOptionElements()}
+							</select>
 						</div>
 					</div>
 				</div>
