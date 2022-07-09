@@ -23,6 +23,14 @@ export default class TextToSpeech extends Component {
 		super(props);
 
 		this.state = {};
+
+		// set the (static) default values required for the component
+		this.defaults = {
+			textInput: "Enter text here and hit the 'Speak' button to listen",
+			pitch: 1,
+			rate: 1,
+			clear: false
+		};
 	}
 
 	// initiatilze the required settings
@@ -186,7 +194,7 @@ export default class TextToSpeech extends Component {
 							id={styles["input-text-container"]}
 							cols="45"
 							rows="15"
-							defaultValue="this is a test"
+							defaultValue={this.defaults.textInput}
 						></textarea>
 					</div>
 					<div className={styles["settings-container"]}>
@@ -195,7 +203,7 @@ export default class TextToSpeech extends Component {
 							<span className={styles["pitch-value"]}>{this.state.pitch}</span>
 							<input
 								type="range"
-								defaultValue="1"
+								defaultValue={this.defaults.pitch}
 								min="0"
 								max="2"
 								step="0.1"
@@ -208,7 +216,7 @@ export default class TextToSpeech extends Component {
 							<span className={styles["rate-value"]}>{this.state.rate}</span>
 							<input
 								type="range"
-								defaultValue="1"
+								defaultValue={this.defaults.rate}
 								min="0.5"
 								step="0.1"
 								max="3"
@@ -222,7 +230,7 @@ export default class TextToSpeech extends Component {
 								type="checkbox"
 								name="clear-input"
 								id={styles["clear-input"]}
-								defaultChecked={this.state.clear}
+								defaultChecked={this.defaults.clear}
 							/>
 						</div>
 						<div className={styles["voice-selection-container"]}>
