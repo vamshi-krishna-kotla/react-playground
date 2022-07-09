@@ -199,8 +199,8 @@ export default class TextToSpeech extends Component {
 					</div>
 					<div className={styles["settings-container"]}>
 						<div className={styles["pitch-setting"]}>
-							<label htmlFor="pitch">Pitch : </label>
-							<span className={styles["pitch-value"]}>{this.state.pitch}</span>
+							<label htmlFor={styles["pitch"]}>Pitch : </label>
+							<span id="pitch" className={styles["pitch-value"]}>{this.state.pitch}</span>
 							<input
 								type="range"
 								defaultValue={this.defaults.pitch}
@@ -212,8 +212,8 @@ export default class TextToSpeech extends Component {
 							/>
 						</div>
 						<div className={styles["rate-setting"]}>
-							<label htmlFor="rate">Rate : </label>
-							<span className={styles["rate-value"]}>{this.state.rate}</span>
+							<label htmlFor={styles["rate"]}>Rate : </label>
+							<span id="rate" className={styles["rate-value"]}>{this.state.rate}</span>
 							<input
 								type="range"
 								defaultValue={this.defaults.rate}
@@ -225,7 +225,7 @@ export default class TextToSpeech extends Component {
 							/>
 						</div>
 						<div className={styles["clear-input-setting"]}>
-							<label htmlFor="clear-input">Clear input after speaking : </label>
+							<label htmlFor={styles["clear-input"]}>Clear input after speaking : </label>
 							<input
 								type="checkbox"
 								name="clear-input"
