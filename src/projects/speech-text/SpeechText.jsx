@@ -1,7 +1,7 @@
 import React from "react";
 
-import SpeechToText from "./components/SpeechToText.jsx";
-import TextToSpeech from "./components/TextToSpeech.jsx";
+import SpeechToText from "./components/speech-to-text/SpeechToText.jsx";
+import TextToSpeech from "./components/text-to-speech/TextToSpeech.jsx";
 
 /**
  * import required params for routing within the component

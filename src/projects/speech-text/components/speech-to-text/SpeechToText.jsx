@@ -5,6 +5,8 @@
 
 import React, { Component } from "react";
 
+import styles from './SpeechToText.module.scss';
+
 export default class SpeechToText extends Component {
 	constructor(props) {
 		super(props);
