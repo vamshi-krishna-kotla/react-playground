@@ -41,7 +41,7 @@ export default class QuotesComp extends Component {
 				<h1>Feed your mind</h1>
 				<p>Hit the button below to get a quote</p>
 				<button
-					className={styles["new-quote-btn"]}
+					className={styles["new-quote-btn"] + ' button'}
 					onClick={this.generateNewQuote}
 					disabled={this.state.visibility ? false : 'disabled'}
 				>
