@@ -1,5 +1,6 @@
 .default-container {
     .title {
+        margin: 3rem 0 5rem;
         text-align: center;
         text-transform: uppercase;
     }
@@ -10,16 +11,18 @@
         width: 100%;
 
         .link-card {
-            -moz-transition-duration: 0.25s;
-            -o-transition-duration: 0.25s;
-            -webkit-transition-duration: 0.25s;
             border-radius: 0.5rem;
             color: black;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
             outline: rgba($color: gray, $alpha: 0.5) inset 2px;
             padding: 2rem;
             text-decoration: none;
             transition-duration: 0.25s;
+            -moz-transition-duration: 0.25s;
+            -o-transition-duration: 0.25s;
+            -webkit-transition-duration: 0.25s;
             width: 25%;
 
             &:hover {
@@ -28,8 +31,11 @@
             }
 
             .link-title {
-                color: blue;
+                color: rgb(2, 22, 222);
                 display: block;
+                text-align: center;
+                font-size: 1.25rem;
+                font-weight: bold;
             }
 
             .description-icon {
