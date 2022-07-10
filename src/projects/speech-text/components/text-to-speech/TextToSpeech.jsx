@@ -47,15 +47,15 @@ export default class TextToSpeech extends Component {
 		this.speechObj = new SpeechSynthesisUtterance();
 		this.voices = [];
 
-		// set the event listeners to disable conversion while the speech output is given
+		// set the event listeners to disable button while the speech output is given
 		this.speechObj.onstart = () => {
 			this.setState({
-				enableConversion: false
+				enableButton: false
 			});
 		};
 		this.speechObj.onend = () => {
 			this.setState({
-				enableConversion: true
+				enableButton: true
 			});
 		};
 
@@ -100,6 +100,7 @@ export default class TextToSpeech extends Component {
 			rate: 1,
 			clear: false,
 			enableConversion: false,
+			enableButton: true
 		});
 
 		// if the voices list already available then we directly use it
@@ -256,7 +257,7 @@ export default class TextToSpeech extends Component {
 					<button
 						className={styles["speak-btn"] + " button"}
 						onClick={this.initSpeech}
-						disabled={!this.state.enableConversion}
+						disabled={!(this.state.enableConversion && this.state.enableButton)}
 					>Speak</button>
 				</div>
 			</div>
