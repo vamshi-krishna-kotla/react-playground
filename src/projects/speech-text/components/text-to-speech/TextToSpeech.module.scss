@@ -92,6 +92,10 @@
             font-size: 1.25rem;
             padding: 1rem 2rem;
 
+            &:disabled {
+                cursor: not-allowed;
+            }
+
             &:not(:disabled) {
                 border: none;
 

@@ -47,6 +47,18 @@ export default class TextToSpeech extends Component {
 		this.speechObj = new SpeechSynthesisUtterance();
 		this.voices = [];
 
+		// set the event listeners to disable conversion while the speech output is given
+		this.speechObj.onstart = () => {
+			this.setState({
+				enableConversion: false
+			});
+		};
+		this.speechObj.onend = () => {
+			this.setState({
+				enableConversion: true
+			});
+		};
+
 		// store the required elements
 		const pitchElement = document.querySelector(`input#${styles["pitch"]}`);
 		const rateElement = document.querySelector(`input#${styles["rate"]}`);
