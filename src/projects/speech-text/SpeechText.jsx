@@ -16,13 +16,15 @@ import TextToSpeech from "./components/text-to-speech/TextToSpeech.jsx";
  */
 import { Route, Switch, Link, useRouteMatch, useParams } from 'react-router-dom';
 
+import styles from './SpeechText.module.scss';
+
 export default function SpeechText() {
 
 	// fetch the current path that user is on
 	let { path, url } = useRouteMatch();
 
 	return (
-		<div className="SpeechTextParent">
+		<div className={styles["speech-text-parent"]}>
 			<Switch>
 				{/* 
 					for '/' path (overall '/projects/speech-text/')
@@ -34,6 +36,7 @@ export default function SpeechText() {
 					for '/<route>' path (overall '/projects/speech-text/<route>')
 				*/}
 				<Route path={`${path}/:route`} exact>
+					<Link className={styles["back-button"]} to={path}>&#8249; Back</Link>
 					{/*
 						component to render the required sub-component based on the "route"  variable
 					*/}
