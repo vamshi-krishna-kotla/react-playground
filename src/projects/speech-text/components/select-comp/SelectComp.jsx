@@ -30,7 +30,7 @@ export function DefaultComp (props) {
 				>
 					<span className={styles["link-title"]}>Text &#8594; Speech</span>
 					<br />
-					Input: <span className={styles["description-icon"]}>&lt;....&gt;</span>
+					Input: <span className={styles["description-icon"]}>&#x1F524;</span>
 					<br />
 					Output: <span className={styles["description-icon"]}>&#x1F50A;</span>
 				</Link>
@@ -42,7 +42,7 @@ export function DefaultComp (props) {
 					<br />
 					Input: <span className={styles["description-icon"]}>&#x1F3A4;</span>
 					<br />
-					Output: <span className={styles["description-icon"]}>&lt;....&gt;</span>
+					Output: <span className={styles["description-icon"]}>&#x1F524;</span>
 				</Link>
            </div>
        </div>
