@@ -247,9 +247,13 @@ export default class TextToSpeech extends Component {
 							/>
 						</div>
 						<div className={styles["voice-selection-container"]}>
-							<select name="voices" id={styles["voice-selection"]}>
-								{this.getVoiceOptionElements()}
-							</select>
+							<label htmlFor={styles["voice-selection"]}>Play in voice: </label>
+							<div className={styles["inner-selection-container"]}>
+								<select name="voices" id={styles["voice-selection"]}>
+									{this.getVoiceOptionElements()}
+								</select>
+								<section className={styles["underline-highlighter"]}></section>
+							</div>
 						</div>
 					</div>
 				</div>

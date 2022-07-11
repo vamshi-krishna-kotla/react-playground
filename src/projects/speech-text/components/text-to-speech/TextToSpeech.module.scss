@@ -67,17 +67,42 @@
                     position: relative;
                 }
             }
+
             .voice-selection-container {
+                border-radius: 5px;
+                border: 1px solid rgba($color: gray, $alpha: 0.25);
                 margin: 1rem 0;
+                padding: 0.5rem;
                 position: relative;
 
-                #voice-selection {
-                    border-radius: 5px;
-                    border: 1px solid rgba($color: gray, $alpha: 0.25);
-                    font-size: 1rem;
-                    padding: 0.5rem;
-                    position: relative;
-                    width: 100%;
+                .inner-selection-container {
+                    display: inline-block;
+                    width: 85%;
+
+                    #voice-selection {
+                        border-bottom: 1px solid gray;
+                        border: none;
+                        font-size: 1rem;
+                        outline: none;
+                        padding: 0.5rem 0;
+                        position: relative;
+                        width: 100%;
+
+                        &:focus {
+                            & ~ .underline-highlighter {
+                                width: 100%;
+                            }
+                        }
+                    }
+    
+                    .underline-highlighter {
+                        background-color: blue;
+                        height: 2px;
+                        margin: 0;
+                        padding: 0;
+                        transition: width 0.25s;
+                        width: 0;
+                    }
                 }
             }
         }
