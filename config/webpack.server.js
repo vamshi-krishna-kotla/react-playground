@@ -5,7 +5,7 @@ const path = require('path');
  * @note
  * we need MiniCSSExtractPlugin plugin on server-side for CSS modules
  * as these modules work with dynamically generated, hashed
- * CSS element selectors, we them to be parsed on server-side to place
+ * CSS element selectors, we need them to be parsed on server-side to place
  * the right selectors in the JSX of the components
  */
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
