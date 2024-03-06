@@ -15,6 +15,9 @@ const { compiler } = require('./compiler');
 // require express server
 const { app } = require('./server');
 
+// read the port from environment variables else use default
+const PORT = process.env.PORT || 8080;
+
 /**
  * start webpack watcher
  * 
@@ -41,6 +44,6 @@ routes.forEach(route => {
 });
 
 // start the server
-app.listen(3000, () => {
-	console.log('Dev server running on http://localhost:3000');
+app.listen(PORT, () => {
+	console.log(`Dev server running on http://localhost:${PORT}`);
 });

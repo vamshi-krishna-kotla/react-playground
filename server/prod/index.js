@@ -23,6 +23,9 @@ import { StaticRouter } from 'react-router-dom';
 import { default as ModulesApp } from '../../src/modules/App.jsx';
 import { default as ProjectsApp } from '../../src/projects/App.jsx';
 
+// read the port from environment variables else use default
+const PORT = process.env.PORT || 8080;
+
 /**
  * enable express server
  */
@@ -121,8 +124,8 @@ app.get(/^\/projects((\/[a-z \-]*)?([\/])?)*$/i, (req, res) => {
 });
 
 /**
- * start the server on PORT 8080
+ * start the server on PORT
  */
-app.listen(8080, () => {
-	console.log('Server started on http://localhost:8080/');
+app.listen(PORT, () => {
+	console.log(`Server started on http://localhost:${PORT}/`);
 });
