@@ -4,9 +4,8 @@ import React from "react";
  * import required params for routing within the component
  * 
  * Link: anchor element based component used to navigate to other path
- * useParams: used to obtain the route variable from a path
  */
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 import SpeechToText from "../speech-to-text/SpeechToText.jsx";
@@ -54,22 +53,8 @@ export function DefaultComp (props) {
  * @returns React component based on the 'route' param
  */
 export function SelectedComponent(props) {
-	/**
-	 * @note "route" is not a default return value from the useParams() function
-	 * any name can be used but the same name should be used in the <Route /> instance
-	 * 
-	 * e.g.
-	 * ----- instance of Route where the variable name is used
-	 * <Route path={`${path}/:someRandomName`} exact>
-	 * 	<SomeComponent />
-	 * </Route>
-	 * 
-	 * ----- using the same variable name for the route via useParams()
-	 * let { someRandomName } = useParams();
-	 * 
-	 * "someRandomName" is the var for the actual route on the browser
-	 */
-	let { route } = useParams();
+	const { route } = props;
+
 	if (route === 'speech-to-text') {
 		return <SpeechToText />;
 	}

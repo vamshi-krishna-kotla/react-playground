@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * import required components for react client-side routing
  */
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // global styles
 import './App.scss';
@@ -23,23 +23,32 @@ export default class App extends React.Component {
 		return (
 			<div className="App">
 				<NavBar />
-				<Switch>
-					<Route path="/projects" exact>
-						<h1>Home page</h1>
-					</Route>
-					<Route path="/projects/quotes" exact>
-						<Quotes />
-					</Route>
-					<Route path="/projects/clock" exact>
-						<AnalogClock />
-					</Route>
-					<Route path="/projects/speech-text">
-						<SpeechText />
-					</Route>
-					<Route path="/projects/shop" exact>
-						<Home />
-					</Route>
-				</Switch>
+				<Routes>
+					<Route
+						path="/projects" exact
+						element={<h1>Home page</h1>}
+					></Route>
+					<Route
+						path="/projects/quotes" exact
+						element={<Quotes />}
+					></Route>
+					<Route
+						path="/projects/clock" exact
+						element={<AnalogClock />}
+					></Route>
+					<Route
+						path="/projects/speech-text"
+						element={<SpeechText />}
+					></Route>
+					<Route
+						path="/projects/speech-text/:route"
+						element={<SpeechText />}
+					></Route>
+					<Route
+						path="/projects/shop" exact
+						element={<Home />}
+					></Route>
+				</Routes>
 			</div>
 		);
 	};
