@@ -7,6 +7,7 @@ import './Parent.scss';
 import { Child1 } from '../Child1/Child1.jsx';
 import { Child2 } from '../Child2/Child2.jsx';
 import { NotificationComponent } from '../Notification/Notification.jsx';
+import { debounce } from '../../../../helpers/helper.js';
 
 /**
  * Parent Component holding two children components
@@ -37,7 +38,7 @@ export class Parent extends React.Component {
 	 * @param {String} value : passed from within the calling components/functions
 	 * this value will be set to display on the DOM
 	 */
-	modifyState = (value) => {
+	modifyState = debounce((value) => {
 		/**
 		 * we need to remove the notification component and remount it
 		 * 
@@ -52,7 +53,7 @@ export class Parent extends React.Component {
 				notify: true
 			})
 		});
-	}
+	}, 500);
 
 	render() {
 		return(
