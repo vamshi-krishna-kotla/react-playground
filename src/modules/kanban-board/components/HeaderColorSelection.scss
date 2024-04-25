@@ -1,0 +1,31 @@
+.header-color-selection-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+
+    .color {
+        width: 2.5rem;
+        height: 2.5rem;
+        cursor: pointer;
+
+        &.pink {
+            background-color: pink;
+        }
+
+        &.blue {
+            background-color: blue;
+        }
+
+        &.green {
+            background-color: green;
+        }
+
+        &.red {
+            background-color: red;
+        }
+
+        &.black {
+            background-color: black;
+        }
+    }
+}

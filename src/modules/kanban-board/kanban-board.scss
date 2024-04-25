@@ -1,0 +1,26 @@
+#kanban-board {
+	.toolbar-container {
+		align-items: center;
+		background-color: gray;
+		display: flex;
+		justify-content: space-between;
+		padding: 2rem;
+
+		.action-button-container {
+			width: 20%;
+
+			.add-ticket-trigger-button {
+				cursor: pointer;
+				background-color: whitesmoke;
+				border-radius: 0.25rem;
+				display: inline-block;
+				padding: 0.25rem;
+
+				&::before {
+					content: '\2b';
+					margin: 0 0.25rem 0 0;
+				}
+			}
+		}
+	}
+}
