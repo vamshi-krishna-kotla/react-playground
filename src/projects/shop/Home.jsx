@@ -11,17 +11,26 @@ function Home() {
 
     const pageSize = 3;
 
-    useEffect(async () => {
-        const response = await fetch(`https://fakestoreapi.com/products`);
-        const productData = await response.json();
-        allProducts.current = productData;
-        setProduct(productData);
+    /**
+     * using async function directly as callback is throwing
+     * error, hence using an anonymous function to trigger the
+     * async function inside useEffect
+     */
+    useEffect(() => {
+        (async function() {
+            const response = await fetch(`https://fakestoreapi.com/products`);
+            const productData = await response.json();
+            allProducts.current = productData;
+            setProduct(productData);
+        })();
     }, []);
 
-    useEffect(async () => {
-        const response = await fetch(`https://fakestoreapi.com/products/categories`);
-        const categoryData = await response.json();
-        setCategories(categoryData);
+    useEffect(() => {
+        (async function() {
+            const response = await fetch(`https://fakestoreapi.com/products/categories`);
+            const categoryData = await response.json();
+            setCategories(categoryData);
+        })();
     }, []);
 
     let filteredArr = products;
