@@ -1,11 +1,12 @@
 import React from 'react';
-import { hydrate, render } from 'react-dom';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
 
-let root = document.getElementById('root');
+let container = document.getElementById('root');
+let root;
 
 /**
  * @note
@@ -22,4 +23,12 @@ let root = document.getElementById('root');
  * - StaticRouter passes the request URL path while rendering the HTML
  * - BrowserRouter picks up that route from client side and renders the client side routed component
  */
-root.children[0] ? hydrate(<BrowserRouter><App /></BrowserRouter>, root) : render(<BrowserRouter><App /></BrowserRouter>, root);
+
+container.children[0] ? (function (){
+    // hydrate the app as it is server-side rendered
+    root = hydrateRoot(container, <BrowserRouter><App /></BrowserRouter>);
+})() : (function (){
+    // render the app as it is client side rendered
+    root = createRoot(container);
+    root.render(<BrowserRouter><App /></BrowserRouter>);
+})();
