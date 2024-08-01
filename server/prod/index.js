@@ -15,7 +15,7 @@ import fs from 'fs';
  */
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server.js';
 
 /**
  * import and rename the default exports from respective target React Components
@@ -101,8 +101,24 @@ app.get(/^\/projects((\/[a-z \-]*)?([\/])?)*$/i, (req, res) => {
 			res.status(500).send(err).end();
 		}
 		else {
-			var response = data.replace('<div id="root"></div>', `<div id="root">
-			${renderToString(
+			var response = data.replace('<div id="root"></div>',
+				/**
+				 * using string concatenation ('foo' + ' ' + 'bar' = 'foo bar')
+				 * instead of template string (`${foo} ${bar}` = 'foo bar')
+				 * to have multiline representational code
+				 * 
+				 * multiline code is considered as single line in concatenation output
+				 * 
+				 * but in template string format newlines are considered in the output as well
+				 * as they are present within the string literal notation (`)
+				 * 
+				 * (i) 'foo'\n+'bar' = 'foobar'
+				 * (ii) `foo\nbar' = 'foo<new line>bar'
+				 * 
+				 * both are not same
+				 */
+				'<div id="root">' +
+				renderToString(
 				/**
 				 * StaticRouter component should be the wrapper around the parent component
 				 * sent for server-side rendering the HTML of the appilcation
@@ -115,9 +131,8 @@ app.get(/^\/projects((\/[a-z \-]*)?([\/])?)*$/i, (req, res) => {
 				 */
 				<StaticRouter location={req.url} >
 					<ProjectsApp />
-				</StaticRouter>)
-				}
-			</div>`);
+				</StaticRouter>
+				) + '</div>');
 			res.send(response);
 		}
 	})
