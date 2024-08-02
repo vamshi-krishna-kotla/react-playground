@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './NavBar.scss';
 
-export default function () {
+export default function ({ links }) {
 	const navBarElement = useRef();
 
 	const toggleNavBar = () => {
@@ -17,10 +17,18 @@ export default function () {
 				<span>&#9776;</span>
 			</div>
 			<div className="nav-bar-options show" ref={navBarElement}>
-				<Link className="button" to="/projects">Home</Link>
-				<Link className="button" to="/projects/quotes">Quotes</Link>
-				<Link className="button" to="/projects/clock">Clock</Link>
-				<Link className="button" to="/projects/speech-text">Speech &#8652; Text</Link>
+				{
+					links.map((eachLink, index) => {
+						return eachLink.showInNavBar ? (
+							<Link
+								key={'nav_link_' + eachLink.titleHTML + '_' + index}
+								className="button"
+								to={eachLink.location}
+								dangerouslySetInnerHTML={{ __html: eachLink.titleHTML }}
+							></Link>
+						) : '';
+					})
+				}
 			</div>
 		</div>
 	);
