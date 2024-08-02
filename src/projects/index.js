@@ -5,7 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
 
-let container = document.getElementById('root');
+const container = document.getElementById('root');
+const application = <BrowserRouter><App /></BrowserRouter>;
 let root;
 
 /**
@@ -26,9 +27,9 @@ let root;
 
 container.children[0] ? (function (){
     // hydrate the app as it is server-side rendered
-    root = hydrateRoot(container, <BrowserRouter><App /></BrowserRouter>);
+    root = hydrateRoot(container, application);
 })() : (function (){
     // render the app as it is client side rendered
     root = createRoot(container);
-    root.render(<BrowserRouter><App /></BrowserRouter>);
+    root.render(application);
 })();
