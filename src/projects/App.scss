@@ -4,15 +4,19 @@ html, body {
     padding: 0;
 }
 
+* {
+    transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+}
+
 .button {
+    border-radius: 0.5rem;
     cursor: pointer;
-    transition-duration: 0.1s;
-    -webkit-transition-duration: 0.1s;
-    -o-transition-duration: 0.1s;
-    -moz-transition-duration: 0.1s;
 
     &:active {
-        transform: translateY(2px);
+        transform: translateY(5px);
     }
 
     &:hover {
