@@ -9,11 +9,32 @@ import { Route, Routes } from 'react-router-dom';
 import './App.scss';
 
 import AnalogClock from './analog-clock/Clock.jsx';
-import NavBar from './navbar/NavBar.jsx';
+import NavBar from '../common/components/navbar/NavBar.jsx';
 import Quotes from './quotes/Quotes.jsx';
 import SpeechText from './speech-text/SpeechText.jsx';
 
 export default class App extends React.Component {
+	/**
+	 * links and respective fields to be displayed on the /projects part of the application
+	 * 
+	 * each link has the following fields
+	 * titleHTML: HTML text to be displayed in the generic nav bar
+	 * location: the route at which the element needs to be displayed
+	 * element: the React element which needs to be displayed
+	 * showInNavBar: flag to enable or disable showing this option in nav bar (used for parameterized routes)
+	 * 
+	 * @note
+	 * place all the new routes here
+	 * if the routes are parameterized and not expected to be shown in nav bar then use the showInNavBar appropriately
+	 */
+	routes = [
+		{ titleHTML: 'Home', location: '/projects', element: <h1>Home page</h1>, showInNavBar: true },
+		{ titleHTML: 'Quotes', location: '/projects/quotes', element: <Quotes />, showInNavBar: true },
+		{ titleHTML: 'Clock', location: '/projects/clock', element: <AnalogClock />, showInNavBar: true },
+		{ titleHTML: 'Speech &#8652; Text', location: '/projects/speech-text', element: <SpeechText />, showInNavBar: true },
+		{ titleHTML: '', location: '/projects/speech-text/:route', element: <SpeechText />, showInNavBar: false },
+	];
+
 	constructor(props) {
 		super(props);
 	}
@@ -21,28 +42,20 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<NavBar />
+				<NavBar links={this.routes} />
 				<Routes>
-					<Route
-						path="/projects" exact
-						element={<h1>Home page</h1>}
-					></Route>
-					<Route
-						path="/projects/quotes" exact
-						element={<Quotes />}
-					></Route>
-					<Route
-						path="/projects/clock" exact
-						element={<AnalogClock />}
-					></Route>
-					<Route
-						path="/projects/speech-text"
-						element={<SpeechText />}
-					></Route>
-					<Route
-						path="/projects/speech-text/:route"
-						element={<SpeechText />}
-					></Route>
+					{
+						this.routes.map((route, index) => {
+							return (
+								<Route
+									key={'route_' + route.titleHTML + '_' + index}
+									path={route.location}
+									exact
+									element={route.element}
+								></Route>
+							);
+						})
+					}
 				</Routes>
 			</div>
 		);
