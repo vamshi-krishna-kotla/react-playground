@@ -6,7 +6,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 // global styles
-import './App.scss';
+import '../common/styles/_common.scss';
 
 import AnalogClock from './analog-clock/Clock.jsx';
 import NavBar from '../common/components/navbar/NavBar.jsx';

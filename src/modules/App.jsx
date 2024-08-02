@@ -5,6 +5,9 @@ import Main from './edit-parent-state-with-functions/index.jsx';
 
 import Shop from './shop/Shop.jsx';
 
+// global styles
+import '../common/styles/_common.scss';
+
 /**
  * @todo
  * 
