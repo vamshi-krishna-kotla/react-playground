@@ -7,9 +7,9 @@ import { Route, Routes } from 'react-router-dom';
 
 // global styles
 import '../common/styles/_common.scss';
+import NavBar from '../common/components/navbar/NavBar.jsx';
 
 import AnalogClock from './analog-clock/Clock.jsx';
-import NavBar from '../common/components/navbar/NavBar.jsx';
 import Quotes from './quotes/Quotes.jsx';
 import SpeechText from './speech-text/SpeechText.jsx';
 

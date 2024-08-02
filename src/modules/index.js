@@ -1,8 +1,16 @@
 import React from 'react';
-import { hydrate, render } from 'react-dom';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
+
+/**
+ * @note
+ * render() and hydrate() are deprecated in React 18
+ * instead 'createRoot()' and 'hydrateRoot()' are used respectively
+ * therefore render() calls below are referred to as usage of createRoot()
+ * and hydrate() calls as of hydrateRoot() respectively
+ */
 
 /**
  * render() method of ReactDOM puts the Component
@@ -16,7 +24,9 @@ import App from './App.jsx';
  * hydrate() behaves same as render() if there is no SSR, i.e.,
  * if there is no template HTML of the Component already present
  */
-let root = document.getElementById('root');
+const container = document.getElementById('root');
+const application = <BrowserRouter><App /></BrowserRouter>;
+let root;
 
 /**
  * if there are children to the root element, it indicates that
@@ -33,4 +43,14 @@ let root = document.getElementById('root');
  * 
  * Adding in BrowserRouter for routing (visit projects/index.js for more info)
  */
-root.children[0] ? hydrate(<BrowserRouter><App /></BrowserRouter>, root) : render(<BrowserRouter><App /></BrowserRouter>, root);
+// this format is deprecated in React 18
+// root.children[0] ? hydrate(application, root) : render(application, root);
+
+container.children[0] ? (function (){
+    // hydrate the app as it is server-side rendered
+    root = hydrateRoot(container, application);
+})() : (function (){
+    // render the app as it is client side rendered
+    root = createRoot(container);
+    root.render(application);
+})();
