@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import './Home.scss';
+import './Shop.scss';
 import Categories from './components/Categories.jsx';
 
 function Home() {

@@ -12,7 +12,6 @@ import AnalogClock from './analog-clock/Clock.jsx';
 import NavBar from './navbar/NavBar.jsx';
 import Quotes from './quotes/Quotes.jsx';
 import SpeechText from './speech-text/SpeechText.jsx';
-import Home from './shop/Home.jsx';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -43,10 +42,6 @@ export default class App extends React.Component {
 					<Route
 						path="/projects/speech-text/:route"
 						element={<SpeechText />}
-					></Route>
-					<Route
-						path="/projects/shop" exact
-						element={<Home />}
 					></Route>
 				</Routes>
 			</div>

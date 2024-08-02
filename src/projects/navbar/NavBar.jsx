@@ -21,7 +21,6 @@ export default function () {
 				<Link className="button" to="/projects/quotes">Quotes</Link>
 				<Link className="button" to="/projects/clock">Clock</Link>
 				<Link className="button" to="/projects/speech-text">Speech &#8652; Text</Link>
-				<Link className="button" to="/projects/shop">Shop</Link>
 			</div>
 		</div>
 	);

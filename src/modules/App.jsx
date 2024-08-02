@@ -3,6 +3,8 @@ import KanbanBoard from './kanban-board/index.jsx';
 
 import Main from './edit-parent-state-with-functions/index.jsx';
 
+import Shop from './shop/Shop.jsx';
+
 /**
  * @todo
  * 
@@ -23,8 +25,9 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<Main />
+				{/* <Main /> */}
 				{/* <KanbanBoard /> */}
+				<Shop />
 			</div>
 		);
 	};
