@@ -3,20 +3,24 @@
  * as output
  */
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import styles from './SpeechToText.module.scss';
 import { NotificationComponent } from "../../../../common/components/notification/Notification.jsx";
 
 export default function SpeechToText() {
 	/**
+	 * using reference to persist the value of speech recognition instance
+	 * over multiple renders
+	 */
+	const speechRecognitionRef = useRef(null);
+	let speechRecognition = speechRecognitionRef.current;
+
+	/**
 	 * used memoised storages for font families and speech recognition
 	 * objects to avoid multiple initialisations for evey re-render
 	 */
-	const { availableFontFamilies, speechRecognition } = useMemo(() => ({
-		availableFontFamilies: [ 'serif', 'cursive', 'aerial', 'sans'],
-		speechRecognition: new (window.SpeechRecognition || window.webkitSpeechRecognition)()
-	}), []);
+	const availableFontFamilies = useMemo(() => (['serif', 'cursive', 'aerial', 'sans']), []);
 
 	// set the (static) default values required for the component
 	const [state, setState] = useState({
@@ -36,7 +40,14 @@ export default function SpeechToText() {
 	 * @note to be triggered only once
 	 */
 	useEffect(() => {
-		if (speechRecognition) {
+		if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+			/**
+			 * initialize the reference and assign the speech recognition
+			 * instance on component mount (single time)
+			 */
+			speechRecognitionRef.current = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+			speechRecognition = speechRecognitionRef.current;
+
 			speechRecognition.continuous = false;
 			speechRecognition.lang = "en-US";
 			speechRecognition.interimResults = false;
