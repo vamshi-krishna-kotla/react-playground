@@ -1,10 +1,13 @@
 .speech-text-parent {
+    position: relative;
+
     .back-button {
         text-decoration: none;
-        float: left;
         color: blue;
         font-size: 1rem;
+        left: 5rem;
         margin: 0 1rem;
         padding: 0.5rem;
+        position: absolute;
     }
 }
