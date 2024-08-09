@@ -1,6 +1,5 @@
 .notification {
 	animation: slideLeft 0.25s linear;
-	background-color: aqua;
 	border-radius: 5px;
 	border: 0.5px solid black;
 	max-width: 35%;
@@ -11,6 +10,14 @@
 
 	&.removed {
 		animation: slideRightAndRemove 0.25s linear forwards;
+	}
+
+	&.default {
+		background-color: aqua;
+	}
+
+	&.error {
+		background-color: rgba($color: #ff0000, $alpha: 0.75);
 	}
 
 	.close {

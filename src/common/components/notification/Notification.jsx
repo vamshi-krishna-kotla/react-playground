@@ -72,7 +72,7 @@ export class NotificationComponent extends Component {
 
 	render() {
 		return (
-			<div className={["notification", !this.state.display ? 'removed' : ''].join(' ')}>
+			<div className={["notification", this.props.type ? this.props.type : 'default', !this.state.display ? 'removed' : ''].join(' ')}>
 				<span
 					className="statement"
 					style={{
