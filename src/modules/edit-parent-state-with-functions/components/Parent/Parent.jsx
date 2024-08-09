@@ -6,7 +6,7 @@ import './Parent.scss';
 
 import { Child1 } from '../Child1/Child1.jsx';
 import { Child2 } from '../Child2/Child2.jsx';
-import { NotificationComponent } from '../Notification/Notification.jsx';
+import { NotificationComponent } from '../../../../common/components/notification/Notification.jsx';
 import { debounce } from '../../../../helpers/helper.js';
 
 /**

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Child2.scss';
 
-import { NotificationComponent } from '../Notification/Notification.jsx';
+import { NotificationComponent } from '../../../../common/components/notification/Notification.jsx';
 
 /**
  * A Child Component that is capable of editing the Parent Component's state
