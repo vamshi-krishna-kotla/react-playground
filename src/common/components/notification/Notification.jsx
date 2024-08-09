@@ -6,7 +6,7 @@ import './Notification.scss';
  * Notification Component bsasically used to display a notification
  * at the top right corner of the calling element (component)
  */
-export class NotificationComponent extends Component {
+class Notification extends Component {
 	/**
 	 * declare the initial state
 	 */
@@ -86,3 +86,11 @@ export class NotificationComponent extends Component {
 		);
 	}
 }
+
+/**
+ * Notification component is used as a common child component
+ * 
+ * Memoising this component to avoid unnecessary re-renders
+ * which may be triggered when the parent component is re-rendered
+ */
+export const NotificationComponent = React.memo(Notification);
