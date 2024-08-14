@@ -102,11 +102,11 @@
             background-color: buttonface;
 
             &.enable-stop-icon {
-                visibility: visible;
+                animation: popOut 0.25s linear forwards;
             }
 
             &.disable-stop-icon {
-                visibility: hidden;
+                animation: popIn 0.25s linear forwards;
             }
 
             &:disabled {
@@ -137,5 +137,23 @@
     }
     100% {
         box-shadow: 0 0 0 2rem rgba($color: #f00, $alpha: 0.35);
+    }
+}
+
+@keyframes popOut {
+    0% {
+        scale: 0;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        scale: 1;
+    }
+    100% {
+        scale: 0;
     }
 }
