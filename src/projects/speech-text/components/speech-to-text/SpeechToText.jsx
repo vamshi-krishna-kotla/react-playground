@@ -48,7 +48,7 @@ export default function SpeechToText() {
 			speechRecognitionRef.current = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 			speechRecognition = speechRecognitionRef.current;
 
-			speechRecognition.continuous = false;
+			speechRecognition.continuous = state.continuous;
 			speechRecognition.lang = "en-US";
 			speechRecognition.interimResults = false;
 			speechRecognition.maxAlternatives = 1;
@@ -59,10 +59,12 @@ export default function SpeechToText() {
 			 * @param {Event} event object that holds speech conversion result
 			 */
 			speechRecognition.onresult = (event) => {
+				const outputTranscript = event?.results[event.resultIndex][0]?.transcript?.trim();
+
 				setState((state) => {
 					return {
 						...state,
-						output: event.results[0][0].transcript
+						output: state.continuous ? (outputTranscript + '\n' + state.output) : outputTranscript
 					};
 				});
 			};
@@ -138,6 +140,7 @@ export default function SpeechToText() {
 		event.stopPropagation();
 
 		setState((state) => {
+			speechRecognition.continuous = !state.continuous;
 			return { ...state, continuous: !state.continuous };
 		});
 	}
@@ -160,6 +163,25 @@ export default function SpeechToText() {
 		});
 	}
 
+	/**
+	 * stop listening to speech input from the user
+	 * 
+	 * @param {Event} event object to stop event propagation
+	 */
+	function stopListening(event) {
+		event.stopPropagation();
+
+		setState((state) => {
+			speechRecognition.stop();
+
+			return {
+				...state,
+				triggerRecognition: false,
+				isUserSpeaking: false
+			};
+		});
+	}
+
 	return (
 		<>
 			{state.notify ? <NotificationComponent type='error' statement={state.notificationStatement}/> : null}
@@ -178,7 +200,7 @@ export default function SpeechToText() {
 							/>
 						</div>
 						<div className={styles["output-font-family"]}>
-							<label htmlFor={styles["font-selection"]}>Output font style:</label>
+							<label htmlFor={styles["font-selection"]}>Font:</label>
 							<div className={styles["inner-selection-container"]}>
 								<select
 									name="fonts"
@@ -222,7 +244,20 @@ export default function SpeechToText() {
 						}
 						disabled={state.triggerRecognition}
 						onClick={startListening}
-					>&#x1F3A4;</button>
+					>
+						<i className="fa fa-microphone"></i>
+					</button>
+					<button
+						className={
+							styles["click-to-stop"] +
+							" button " +
+							(state.continuous ? styles["enable-stop-icon"] : styles["disable-stop-icon"])
+						}
+						onClick={stopListening}
+						disabled={!state.isUserSpeaking}
+					>
+						<i className="fa fa-power-off"></i>
+					</button>
 				</div>
 			</div>
 		</>

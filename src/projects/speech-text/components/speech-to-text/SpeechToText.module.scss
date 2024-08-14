@@ -1,5 +1,6 @@
 .speech-to-text {
-    margin: 2rem 5rem;
+    margin: 2rem auto;
+    width: 60%;
 
     .title {
         text-align: center;
@@ -68,15 +69,21 @@
     }
 
     .button-container {
-        margin: 2rem 0;
-        text-align: center;
+        display: flex;
+        justify-content: space-around;
+        margin: 2rem auto;
         position: relative;
+        text-align: center;
+        width: 25%;
 
-        .click-to-speak {
+        .click-to-speak, .click-to-stop {
             border: none;
             font-size: 3rem;
-            padding: 1rem 1.5rem;
             border-radius: 50%;
+        }
+
+        .click-to-speak {
+            padding: 1rem 1.5rem;
 
             &.restrict-speaking {
                 cursor: not-allowed;
@@ -86,6 +93,25 @@
 
             &.user-speaking {
                 animation: linearOutwardRipple 0.5s linear infinite;
+            }
+        }
+
+        .click-to-stop {
+            padding: 1rem 1.25rem;
+            color: #F00;
+            background-color: buttonface;
+
+            &.enable-stop-icon {
+                visibility: visible;
+            }
+
+            &.disable-stop-icon {
+                visibility: hidden;
+            }
+
+            &:disabled {
+                opacity: 0.25;
+                cursor: not-allowed;
             }
         }
     }
