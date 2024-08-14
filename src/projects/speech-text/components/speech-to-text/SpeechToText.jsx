@@ -197,6 +197,7 @@ export default function SpeechToText() {
 								id={styles["continuos-output"]}
 								defaultChecked={state.continuous}
 								onChange={toggleContinuousOutput}
+								disabled={state.triggerRecognition}
 							/>
 						</div>
 						<div className={styles["output-font-family"]}>
