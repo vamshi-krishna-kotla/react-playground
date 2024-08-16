@@ -5,6 +5,9 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
+import fontFamilies from './assets/font-family.json';
+import languages from './assets/languages.json';
+
 import styles from './SpeechToText.module.scss';
 import { NotificationComponent } from "../../../../common/components/notification/Notification.jsx";
 
@@ -20,13 +23,17 @@ export default function SpeechToText() {
 	 * used memoised storages for font families and speech recognition
 	 * objects to avoid multiple initialisations for evey re-render
 	 */
-	const availableFontFamilies = useMemo(() => (['serif', 'cursive', 'aerial', 'sans']), []);
+	const { availableFontFamilies, availableLanguages } = useMemo(() => ({
+		availableFontFamilies: fontFamilies,
+		availableLanguages: languages
+	}), []);
 
 	// set the (static) default values required for the component
 	const [state, setState] = useState({
 		continuous: false,
 		output: 'See output here',
-		outputFont: availableFontFamilies[0],
+		outputFont: availableFontFamilies[0].code,
+		outputLanguage: availableLanguages[0].code,
 		triggerRecognition: false,
 		isUserSpeaking: false,
 		notify: false,
@@ -49,7 +56,7 @@ export default function SpeechToText() {
 			speechRecognition = speechRecognitionRef.current;
 
 			speechRecognition.continuous = state.continuous;
-			speechRecognition.lang = "en-US";
+			speechRecognition.lang = state.outputLanguage;
 			speechRecognition.interimResults = false;
 			speechRecognition.maxAlternatives = 1;
 
@@ -132,6 +139,20 @@ export default function SpeechToText() {
 	}
 
 	/**
+	 * set the output display language from selected option
+	 * 
+	 * @param {Event} event object that holds the result of selection
+	 */
+	function setOutputLanguage(event) {
+		event.stopPropagation();
+
+		setState((state) => {
+			speechRecognition.lang = event.target.value;
+			return { ...state, outputLanguage: event.target.value };
+		});
+	}
+
+	/**
 	 * set the flag to enable/disable continuous output generation
 	 * 
 	 * @param {Event} event object that holds the result of check-box
@@ -207,15 +228,38 @@ export default function SpeechToText() {
 									name="fonts"
 									id={styles["font-selection"]}
 									onChange={setOutputFontFamily}
-									defaultValue={availableFontFamilies[0]}
+									defaultValue={availableFontFamilies[0].code}
 								>
 									{
 										availableFontFamilies.map((font, index) => {
 											return <option
-														key={font + '_' + index}
-														value={font}
+														key={font.code + '_' + index}
+														value={font.code}
 													>
-														{font.toLocaleUpperCase()}
+														{font.title.toLocaleUpperCase()}
+													</option>
+										})
+									}
+								</select>
+							</div>
+						</div>
+						<div className={styles["output-language"]}>
+							<label htmlFor={styles["language-selection"]}>Language:</label>
+							<div className={styles["inner-selection-container"]}>
+								<select
+									name="languages"
+									id={styles["language-selection"]}
+									onChange={setOutputLanguage}
+									defaultValue={availableLanguages[0].code}
+									disabled={state.continuous}
+								>
+									{
+										availableLanguages.map((lang, index) => {
+											return <option
+														key={lang.code + '_' + index}
+														value={lang.code}
+													>
+														{lang.title}
 													</option>
 										})
 									}
