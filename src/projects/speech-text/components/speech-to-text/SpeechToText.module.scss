@@ -60,10 +60,24 @@
         }
 
         .output-container {
+            display: flex;
             width: 50%;
 
             #output-transcript {
                 font-size: 1rem;
+            }
+
+            .actions-container {
+                display: flex;
+                flex-direction: column;
+                margin: 0 0.25rem;
+
+                .clear-button, .copy-button, .cut-button {
+                    border: 1.5px solid #DDD;
+                    cursor: pointer;
+                    height: 2rem;
+                    margin: 0.25rem 0;
+                }
             }
         }
     }

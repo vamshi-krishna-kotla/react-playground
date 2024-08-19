@@ -203,6 +203,49 @@ export default function SpeechToText() {
 		});
 	}
 
+	/**
+	 * clear the text area
+	 * 
+	 * @param {Event} event object to stop event propagation
+	 */
+	function clearTextArea(event) {
+		event?.stopPropagation();
+
+		setState((state) => {
+			return {
+				...state,
+				output: ''
+			};
+		});
+	}
+
+	/**
+	 * copy the output transcript to clipboard
+	 * 
+	 * @param {Event} event object to stop event propagation
+	 */
+	function copyTextArea(event) {
+		event?.stopPropagation();
+
+		// copy the output transcript
+		navigator.clipboard.writeText(state.output);
+	}
+
+	/**
+	 * copy the output transcript to clipboard and clear the text area
+	 * 
+	 * @param {Event} event object to stop event propagation
+	 */
+	function cutTextArea(event) {
+		event?.stopPropagation();
+
+		// copy the output transcript to clipboard
+		copyTextArea();
+
+		// clear the text area
+		clearTextArea();
+	}
+
 	return (
 		<>
 			{state.notify ? <NotificationComponent type='error' statement={state.notificationStatement}/> : null}
@@ -277,6 +320,26 @@ export default function SpeechToText() {
 							placeholder={state.output}
 							style={{fontFamily: state.outputFont}}
 						></textarea>
+						<div className={styles["actions-container"]}>
+							<button
+								className={styles["clear-button"] + " button"}
+								onClick={clearTextArea}
+							>
+								<i className="fa fa-eraser"></i>
+							</button>
+							<button
+								className={styles["copy-button"] + " button"}
+								onClick={copyTextArea}
+							>
+								<i className="fa fa-copy"></i>
+							</button>
+							<button
+								className={styles["cut-button"] + " button"}
+								onClick={cutTextArea}
+							>
+								<i className="fa fa-cut"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div className={styles["button-container"]}>
