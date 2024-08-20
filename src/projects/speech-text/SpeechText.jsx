@@ -8,7 +8,7 @@ import { DefaultComp, SelectedComponent } from "./components/select-comp/SelectC
  * @note in this component we are routing within an outer layer of router
  * 
  * Link: anchor element based component used to navigate to other path
- * useRouterMatch: used to obtain the path from upper level router
+ * useMatch: used to obtain the path from upper level router
  */
 import { Link, useMatch } from 'react-router-dom';
 
