@@ -12,6 +12,7 @@ import NavBar from '../common/components/navbar/NavBar.jsx';
 import AnalogClock from './analog-clock/Clock.jsx';
 import Quotes from './quotes/Quotes.jsx';
 import SpeechText from './speech-text/SpeechText.jsx';
+import Skribble from './skribble/Skribble.jsx';
 
 export default class App extends React.Component {
 	/**
@@ -32,6 +33,7 @@ export default class App extends React.Component {
 		{ titleHTML: 'Quotes', location: '/projects/quotes', element: <Quotes />, showInNavBar: true },
 		{ titleHTML: 'Clock', location: '/projects/clock', element: <AnalogClock />, showInNavBar: true },
 		{ titleHTML: 'Speech &#8652; Text', location: '/projects/speech-text', element: <SpeechText />, showInNavBar: true },
+		{ titleHTML: 'Skribble', location: '/projects/skribble', element: <Skribble />, showInNavBar: true },
 		{ titleHTML: '', location: '/projects/speech-text/:route', element: <SpeechText />, showInNavBar: false },
 	];
 

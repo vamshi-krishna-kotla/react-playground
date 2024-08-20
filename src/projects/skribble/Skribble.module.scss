@@ -1,0 +1,75 @@
+.skribble-main-container {
+    margin: 2rem auto;
+    position: relative;
+    width: 90%;
+
+    .tools-container {
+        align-items: center;
+        background-color: #DDD;
+        border-radius: 1rem;
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        padding: 0.75rem;
+        width: 75%;
+
+        .tool {
+            font-size: 3rem;
+            padding: 0.5rem;
+            position: relative;
+
+            .info-icon {
+                font-size: 1rem;
+                left: 5%;
+                position: absolute;
+                top: 5%;
+
+                &:hover {
+                    transform: rotateZ(90deg);
+                }
+            }
+
+            .merge-icon {
+                color: #FFF;
+                font-size: 1.4rem;
+                left: 5%;
+                position: absolute;
+                top: 12%;
+            }
+        }
+    }
+
+    .canvas-container {
+        margin: 1rem auto;
+        width: 100%;
+        
+        #skribble-canvas {
+            box-shadow: 1px 1px 0.5rem 1px rgba($color: black, $alpha: 0.15);
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .tooltip-container {
+        padding: 1.5rem 0.5rem;
+
+        .pencil-options-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .eraser-options-container {
+            align-items: center;
+            display: flex;
+        }
+
+        .close-options {
+            border: 1px solid #EEE;
+            cursor: pointer;
+            padding: 3px;
+            position: absolute;
+            right: 2%;
+            top: 2%;
+        }
+    }
+}
