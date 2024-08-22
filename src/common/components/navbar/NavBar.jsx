@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './NavBar.scss';
 
-export default function ({ links }) {
+export default function ({ links, homePath }) {
 	const navBarElement = useRef();
 
 	const toggleNavBar = () => {
@@ -30,6 +30,15 @@ export default function ({ links }) {
 					})
 				}
 			</div>
+			{
+				homePath ? 
+				<div className="back-to-home button">
+					<Link to={homePath}>
+						<i className="fa fa-home"></i>
+					</Link>
+				</div>
+				: null
+			}
 		</div>
 	);
 };

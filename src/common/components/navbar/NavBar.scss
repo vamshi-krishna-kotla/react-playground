@@ -33,6 +33,14 @@
         top: 1.5rem;
         z-index: 10;
     }
+
+    .back-to-home {
+        bottom: 1.5vh;
+        left: 1.5vw;
+        padding: 0.5rem;
+        position: fixed;
+        z-index: 10;
+    }
 }
 
 @keyframes slideIn {
