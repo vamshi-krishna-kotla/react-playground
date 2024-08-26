@@ -32,11 +32,9 @@ export default function ({ links, homePath }) {
 			</div>
 			{
 				homePath ? 
-				<div className="back-to-home button">
-					<Link to={homePath}>
-						<i className="fa fa-home"></i>
-					</Link>
-				</div>
+				<Link to={homePath} className="back-to-home button">
+					<i className="fa fa-home"></i>
+				</Link>
 				: null
 			}
 		</div>
