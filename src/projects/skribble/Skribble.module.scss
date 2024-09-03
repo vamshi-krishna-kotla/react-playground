@@ -18,6 +18,10 @@
             padding: 0.5rem;
             position: relative;
 
+            &.active {
+                box-shadow: 1px 1px 1.5rem 1px rgba($color: blue, $alpha: 0.5);
+            }
+
             .info-icon {
                 font-size: 1rem;
                 left: 5%;
@@ -46,21 +50,38 @@
         #skribble-canvas {
             box-shadow: 1px 1px 0.5rem 1px rgba($color: black, $alpha: 0.15);
             display: block;
-            width: 100%;
         }
     }
 
     .tooltip-container {
-        padding: 1.5rem 0.5rem;
+        padding: 2rem 0.5rem;
 
         .pencil-options-container {
             display: flex;
             flex-direction: column;
+
+            .thickness-selection, .color-selection {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .preview-container {
+                align-items: center;
+                display: flex;
+                justify-content: space-around;
+            }
         }
 
         .eraser-options-container {
             align-items: center;
             display: flex;
+            flex-direction: column;
+
+            .thickness-selection {
+                align-items: center;
+                display: flex;
+            }
         }
 
         .close-options {
