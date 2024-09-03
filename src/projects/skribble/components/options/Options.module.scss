@@ -1,0 +1,27 @@
+.pencil-options-container {
+    display: flex;
+    flex-direction: column;
+
+    .thickness-selection, .color-selection {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .preview-container {
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+.eraser-options-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    .thickness-selection {
+        align-items: center;
+        display: flex;
+    }
+}

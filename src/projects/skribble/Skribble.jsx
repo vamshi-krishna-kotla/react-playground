@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ToolTip from '../../common/components/tool-tip/ToolTip.jsx';
 
 import styles from './Skribble.module.scss';
-import { EraserOptions, PencilOptions } from './components/Options.jsx';
+import { EraserOptions, PencilOptions } from './components/options/Options.jsx';
 
 export default function Skribble() {
     // initialize all required state variables

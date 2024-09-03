@@ -4,9 +4,9 @@
 
 import React, { useState } from "react";
 
-import { debounce } from "../../../helpers/helper";
+import { debounce } from "../../../../helpers/helper";
 
-import styles from '../Skribble.module.scss';
+import styles from './Options.module.scss';
 
 /**
  * component to render Pencil options for drawing
@@ -54,7 +54,7 @@ function PencilOptionsComponent({colorRef, thicknessRef}) {
     return (
         <div className={styles["pencil-options-container"]}>
             <div className={styles["thickness-selection"]}>
-                <label htmlFor={styles["eraser-thickness"]}>Thickness: </label>
+                <label htmlFor={styles["pencil-thickness"]}>Thickness: </label>
                 <input
                     type="range"
                     defaultValue={thicknessRef.current}

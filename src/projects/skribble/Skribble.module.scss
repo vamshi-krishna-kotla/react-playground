@@ -56,34 +56,6 @@
     .tooltip-container {
         padding: 2rem 0.5rem;
 
-        .pencil-options-container {
-            display: flex;
-            flex-direction: column;
-
-            .thickness-selection, .color-selection {
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-            }
-
-            .preview-container {
-                align-items: center;
-                display: flex;
-                justify-content: space-around;
-            }
-        }
-
-        .eraser-options-container {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-
-            .thickness-selection {
-                align-items: center;
-                display: flex;
-            }
-        }
-
         .close-options {
             border: 1px solid #EEE;
             cursor: pointer;
