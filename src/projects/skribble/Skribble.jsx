@@ -2,7 +2,7 @@
  * component that acts like a scribble board to draw, add notes and add images
  */
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import Toolbar from './components/toolbar/Toolbar.jsx';
 
@@ -13,7 +13,7 @@ export default function Skribble() {
     const pencilColorRef = useRef('#000');
     const pencilThicknessRef = useRef(5);
     const eraserThicknessRef = useRef(10);
-    const cursorStyleRef = useRef({});
+    const [cursorStyle, setCursorStyle] = useState('');
 
     const canvasRef = useRef();
 
@@ -75,10 +75,10 @@ export default function Skribble() {
                 pencilColorRef={pencilColorRef}
                 pencilThicknessRef={pencilThicknessRef}
                 eraserThicknessRef={eraserThicknessRef}
-                cursorStyleRef={cursorStyleRef}
+                setCursorStyle={setCursorStyle}
             />
             <div className={styles["canvas-container"]}>
-                <canvas id={styles["skribble-canvas"]} ref={canvasRef} style={cursorStyleRef.current}></canvas>
+                <canvas id={styles["skribble-canvas"]} ref={canvasRef} style={{ cursor: cursorStyle }}></canvas>
             </div>
         </div>
     );
