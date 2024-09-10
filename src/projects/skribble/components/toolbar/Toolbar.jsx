@@ -103,12 +103,6 @@ function ToolbarComponent({ eraserModeRef, pencilColorRef, pencilThicknessRef, e
             <div className={styles["tool"] + ' button'}>
                 <i className="fa fa-download"></i>
             </div>
-            <div className={styles["tool"] + ' button'}>
-                <i className="fa fa-undo"></i>
-            </div>
-            <div className={styles["tool"] + ' button'}>
-                <i className="fa fa-redo"></i>
-            </div>
         </div>
 
         <ToolTip target={pencilOptionsRef.current} className={styles["tooltip-container"]} show={showPencilOptionsFlag}>
