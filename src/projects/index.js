@@ -3,6 +3,11 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 
 import { BrowserRouter } from 'react-router-dom';
 
+// import common socket logic for auto reload only for dev mode
+if (process.env.NODE_ENV === 'development') {
+    import('../common/socket/autoReloadSocket.js');
+}
+
 import App from './App.jsx';
 
 const container = document.getElementById('root');

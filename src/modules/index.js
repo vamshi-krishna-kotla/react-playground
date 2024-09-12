@@ -4,6 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
 
+// import common socket logic for auto reload only for dev mode
+if (process.env.NODE_ENV === 'development') {
+    import('../common/socket/autoReloadSocket.js');
+}
+
 /**
  * @note
  * render() and hydrate() are deprecated in React 18

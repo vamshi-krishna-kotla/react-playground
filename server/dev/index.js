@@ -2,9 +2,10 @@
  * this is the development server where the client-side code is
  * compiled immediately when the files' content changes
  * 
- * @note a reload is required on the frontend to load the new updated files
- * 
  */
+
+const { createServer } = require('http');
+const { Server } = require('socket.io');
 
 // require routes and handler for webpack output
 const { routes, responseFunction } = require('./helper');
@@ -18,6 +19,10 @@ const { app } = require('./server');
 // read the port from environment variables else use default
 const PORT = process.env.PORT || 8080;
 
+// create instances of http to augment with socket server
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+
 /**
  * start webpack watcher
  * 
@@ -28,13 +33,16 @@ const watcher = compiler.watch({
 	ignored: /node_modules/
 }, (err, stats) => {
 	if (err) {
-		console.log(err);
+		console.error(err);
 	}
 	else {
 		console.log('watcher running');
 		console.log(stats.toString({
 			colors: true
 		}));
+
+		// emit an event to the client socket to reload the page when there are code updates
+		io.emit('reload');
 	}
 });
 
@@ -44,6 +52,6 @@ routes.forEach(route => {
 });
 
 // start the server
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
 	console.log(`Dev server running on http://localhost:${PORT}`);
 });

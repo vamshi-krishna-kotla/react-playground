@@ -33,6 +33,9 @@ module.exports = (env) => {
 		},
 		/**
 		 * decide the mode of compilation based on the 'dev' env passed from command
+		 * 
+		 * sets the value for process.env.NODE_ENV automatically
+		 * ref: https://webpack.js.org/configuration/mode/
 		 */
 		mode: env.dev ? 'development' : 'production',
 		output: {
