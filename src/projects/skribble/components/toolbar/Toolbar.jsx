@@ -6,7 +6,14 @@ import { EraserOptions, PencilOptions } from '../options/Options.jsx';
 
 import styles from './Toolbar.module.scss';
 
-function ToolbarComponent({ eraserModeRef, pencilColorRef, pencilThicknessRef, eraserThicknessRef, setCursorStyle }) {
+function ToolbarComponent({
+    eraserModeRef,
+    pencilColorRef,
+    pencilThicknessRef,
+    eraserThicknessRef,
+    setCursorStyle,
+    canvasRef
+}) {
     // initialize all required state variables
     const [showPencilOptionsFlag, setShowPencilOptionsFlag] = useState(false);
     const [showEraserOptionsFlag, setShowEraserOptionsFlag] = useState(false);
@@ -63,6 +70,19 @@ function ToolbarComponent({ eraserModeRef, pencilColorRef, pencilThicknessRef, e
     }
 
     /**
+     * method to trigger canvas image download
+     * @param {Object} event Event object to stop propagation
+     */
+    function downloadCanvasJPG(event) {
+        event?.stopPropagation();
+
+        const anchor = document.createElement('a');
+        anchor.href = canvasRef.current.toDataURL();
+        anchor.download = 'Skribble.jpg';
+        anchor.click();
+    }
+
+    /**
      * run this callback for every re-render and correspondingly update the parent component
      * with the new cursor style generated from the newly selected styles
      */
@@ -94,7 +114,7 @@ function ToolbarComponent({ eraserModeRef, pencilColorRef, pencilThicknessRef, e
                 <i className={styles["info-icon"] + " fa fa-gear"} ref={eraserOptionsRef} onClick={toggleEraserOptions}></i>
             </div>
             <div className={styles["tool"] + ' button'}>
-                <i className="fa fa-download"></i>
+                <i className="fa fa-download" onClick={downloadCanvasJPG}></i>
             </div>
         </div>
 

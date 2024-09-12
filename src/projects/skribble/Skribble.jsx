@@ -84,6 +84,7 @@ export default function Skribble() {
                 pencilThicknessRef={pencilThicknessRef}
                 eraserThicknessRef={eraserThicknessRef}
                 setCursorStyle={setCursorStyle}
+                canvasRef={canvasRef}
             />
             <div className={styles["canvas-container"]}>
                 <canvas id={styles["skribble-canvas"]} ref={canvasRef} style={{ cursor: cursorStyle }}></canvas>
