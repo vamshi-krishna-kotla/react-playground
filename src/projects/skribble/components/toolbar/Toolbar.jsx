@@ -94,14 +94,6 @@ function ToolbarComponent({ eraserModeRef, pencilColorRef, pencilThicknessRef, e
                 <i className={styles["info-icon"] + " fa fa-gear"} ref={eraserOptionsRef} onClick={toggleEraserOptions}></i>
             </div>
             <div className={styles["tool"] + ' button'}>
-                <i className="fa-solid fa-file-lines"></i>
-                <i className={styles["merge-icon"]+ " fa fa-circle-plus"}></i>
-            </div>
-            <div className={styles["tool"] + ' button'}>
-                <i className="fa-solid fa-file-image"></i>
-                <i className={styles["merge-icon"]+ " fa fa-circle-plus"}></i>
-            </div>
-            <div className={styles["tool"] + ' button'}>
                 <i className="fa fa-download"></i>
             </div>
         </div>

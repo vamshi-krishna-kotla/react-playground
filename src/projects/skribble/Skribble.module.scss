@@ -2,6 +2,22 @@
     margin: 2rem auto;
     position: relative;
     width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+
+    .clear-canvas-button-container {
+        margin: 0 0.5rem;
+        align-content: center;
+
+        .clear-canvas-button {
+            border: none;
+            cursor: pointer;
+            font-size: 2rem;
+            padding: 0.65rem;
+            border-radius: 2rem;
+        }
+    }
 
     .canvas-container {
         margin: 1rem auto;
@@ -11,16 +27,6 @@
         #skribble-canvas {
             box-shadow: 1px 1px 0.5rem 1px rgba($color: black, $alpha: 0.15);
             display: block;
-        }
-
-        .clear-canvas-button {
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0.65rem;
-            position: absolute;
-            right: 0;
-            top: -2.75rem;
         }
     }
 }

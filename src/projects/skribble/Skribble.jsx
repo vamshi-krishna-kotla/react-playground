@@ -73,6 +73,11 @@ export default function Skribble() {
 
     return (
         <div className={styles["skribble-main-container"]}>
+            <div className={styles["clear-canvas-button-container"]}>
+                <button className={styles["clear-canvas-button"] + " button"} ref={clearCanvasButtonRef}>
+                    <i className="fa-solid fa-broom"></i>
+                </button>
+            </div>
             <Toolbar
                 eraserModeRef={eraserModeRef}
                 pencilColorRef={pencilColorRef}
@@ -82,9 +87,6 @@ export default function Skribble() {
             />
             <div className={styles["canvas-container"]}>
                 <canvas id={styles["skribble-canvas"]} ref={canvasRef} style={{ cursor: cursorStyle }}></canvas>
-                <button className={styles["clear-canvas-button"] + " button"} ref={clearCanvasButtonRef}>
-                    <i className="fa-solid fa-broom"></i>
-                </button>
             </div>
         </div>
     );
