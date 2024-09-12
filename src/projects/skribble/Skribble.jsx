@@ -16,16 +16,12 @@ export default function Skribble() {
     const [cursorStyle, setCursorStyle] = useState('');
 
     const canvasRef = useRef();
+    const clearCanvasButtonRef = useRef();
 
     // initialize local variables used for scribbling
     let context = null;
     let isDrawing = false;
     let lastX, lastY;
-
-    // set cursor UI for within the canvs
-    // const width = eraseMode ? eraserThickness.current : pencilThickness.current, widthHalf = width / 2;
-    // const cursorColor = eraseMode ? 'fill="%23000000" opacity="0.3"' : `fill="${encodeURIComponent(pencilColor.current)}"`;
-    // const cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" ${cursorColor} height="${width}" viewBox="0 0 ${width} ${width}" width="${width}"><circle cx="${widthHalf}" cy="${widthHalf}" r="${widthHalf}" ${cursorColor} /></svg>') ${widthHalf} ${widthHalf}, auto`;
 
     // once component is loaded resize the canvas and attach event handlers
     useEffect(() => {
@@ -66,6 +62,13 @@ export default function Skribble() {
         canvasRef.current.onmouseout = () => {
             isDrawing = false;
         };
+
+        // clear canvas button handler
+        clearCanvasButtonRef.current.onclick = (event) => {
+            event.stopPropagation();
+
+            context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        };
     }, []);
 
     return (
@@ -79,6 +82,9 @@ export default function Skribble() {
             />
             <div className={styles["canvas-container"]}>
                 <canvas id={styles["skribble-canvas"]} ref={canvasRef} style={{ cursor: cursorStyle }}></canvas>
+                <button className={styles["clear-canvas-button"] + " button"} ref={clearCanvasButtonRef}>
+                    <i className="fa-solid fa-broom"></i>
+                </button>
             </div>
         </div>
     );
