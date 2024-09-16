@@ -65,6 +65,10 @@ class Notification extends Component {
 	 * close the notification
 	 */
 	closeNotification = () => {
+		// execute any callback if provided for closing event
+		if (this.props.onClose) {
+			this.props.onClose();
+		}
 		this.setState({
 			display: false
 		});
