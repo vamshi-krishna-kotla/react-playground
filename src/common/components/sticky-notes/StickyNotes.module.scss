@@ -1,0 +1,58 @@
+.sticky-notes-container {
+    bottom: 1.5vh;
+    position: fixed;
+    right: 1.5vw;
+
+    .trigger-new-notes-button {
+        border: none;
+        font-size: 2.5rem;
+        padding: 0.5rem;
+        z-index: 10;
+    
+        .merge-icon {
+            color: rgba($color: #fff, $alpha: 1);
+            font-size: 1.4rem;
+            left: 0.1rem;
+            position: absolute;
+            top: 0.3rem;
+        }
+    }
+}
+
+.new-note-input-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+
+    .new-note-title {
+        margin: 0.25rem 0;
+
+        #new-note-title-input {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+        }
+    }
+
+    .new-note-type-selection {
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        margin: 0.5rem 0;
+
+        .selection-option {
+            font-size: 3rem;
+
+            &.selected {
+                box-shadow: 1px 1px 0.5rem 2px #008000;
+            }
+        }
+    }
+
+    .create-new-note-button {
+        background-color: #3f3;
+        border: 3px solid #0a0;
+        margin: 0.25rem auto;
+        padding: 0.5rem 0.25rem;
+        width: 40%;
+    }
+}

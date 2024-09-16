@@ -10,6 +10,7 @@ import '../common/styles/_common.scss';
 import NavBar from '../common/components/navbar/NavBar.jsx';
 import routes from './routes.js';
 import Home from './home/Home.jsx';
+import StickyNotes from '../common/components/sticky-notes/StickyNotes.jsx';
 
 export default function App() {
 	// check for home route
@@ -36,6 +37,7 @@ export default function App() {
 							})
 						}
 					</Routes>
+					<StickyNotes />
 				</>
 				:
 				// render home page if path matches
