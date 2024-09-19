@@ -11,6 +11,15 @@ const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 /**
+ * @note
+ * we are using the DefinePlugin to preset required global variables
+ * it can also be used to set environment variables during build time
+ * 
+ * ref: https://webpack.js.org/plugins/define-plugin/
+ */
+const { DefinePlugin } = require('webpack');
+
+/**
  * this webpack configuration is to support bundling on the server-side
  * as we are working with ES6 imports and other new JS syntaxes, we
  * need support for transpiling and as SSR is enabled on the server, we
@@ -116,6 +125,19 @@ module.exports = (env) => {
 			new MiniCSSExtractPlugin({
 				filename: 'styles/[name].[contenthash].css',
 			}),
+			// set the global variables
+			new DefinePlugin({
+				/**
+				 * these environment variables are set to avoid unwanted imports and resulting errors
+				 * during the import of sockets client code while building on the server-side
+				 * 
+				 * ref:
+				 * https://github.com/websockets/ws/blob/master/doc/ws.md#ws_no_buffer_util
+				 * https://github.com/websockets/ws/blob/master/doc/ws.md#ws_no_utf_8_validate
+				 */
+				'process.env.WS_NO_BUFFER_UTIL': true,
+				'process.env.WS_NO_UTF_8_VALIDATE': true
+			})
 		]
 	};
 }
