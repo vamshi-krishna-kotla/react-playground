@@ -1,0 +1,63 @@
+.sticky-note {
+    background: #fff;
+    border: 0.5px solid black;
+    box-shadow: 1px 1px 10px 1px black;
+    height: 10rem;
+    left: 50vw;
+    overflow: scroll;
+    position: fixed;
+    top: 50vh;
+    transition-duration: 0.1s;
+    width: 15rem;
+    z-index: 5;
+
+    &.isDragging {
+        opacity: 0.5;
+        transition-duration: 0ms;
+    }
+
+    &.minimized {
+        height: 2rem;
+    }
+
+    .title-container {
+        align-items: center;
+        background: rgb(255, 242, 0);
+        cursor: move;
+        display: flex;
+        font-weight: bold;
+        height: 1.5rem;
+        justify-content: space-between;
+        padding: 0.25rem;
+
+        .title {
+            text-overflow: ellipsis;
+            width: 70%;
+        }
+
+        .action-buttons-container {
+            align-items: center;
+            display: flex;
+            justify-content: space-around;
+            width: 30%;
+
+            .resize-button, .delete-button {
+                border-radius: 50%;
+                cursor: pointer;
+                font-weight: bold;
+                height: 1.5rem;
+                padding: 0;
+                width: 1.5rem;
+            }
+        }
+    }
+
+    .note-content {
+        border: none;
+        height: 76%;
+        outline: none;
+        padding: 0;
+        resize: none;
+        width: 100%;
+    }
+}

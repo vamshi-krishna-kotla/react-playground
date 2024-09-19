@@ -1,4 +1,4 @@
-.sticky-notes-container {
+.sticky-note-creation-container {
     bottom: 1.5vh;
     position: fixed;
     right: 1.5vw;
@@ -16,6 +16,10 @@
             position: absolute;
             top: 0.3rem;
         }
+    }
+
+    #image-uploader {
+        visibility: hidden;
     }
 }
 
