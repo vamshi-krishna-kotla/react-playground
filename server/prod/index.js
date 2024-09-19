@@ -9,6 +9,11 @@
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
+// socket logic for realtime communication without HTTP
+import setupSocketsLogic from '../common/socket.js';
 
 /**
  * React (client-side) support dependencies
@@ -30,6 +35,13 @@ const PORT = process.env.PORT || 8080;
  * enable express server
  */
 const app = express();
+
+// instantiate httpServer and IO socket
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+
+// add socket logic for realtime communication
+setupSocketsLogic(io);
 
 /**
  * support JSON format for data exchange
@@ -141,6 +153,6 @@ app.get(/^\/projects((\/[a-z \-]*)?([\/])?)*$/i, (req, res) => {
 /**
  * start the server on PORT
  */
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
 	console.log(`Server started on http://localhost:${PORT}/`);
 });
