@@ -4,7 +4,7 @@
  * 
  * @param {Socket} io Server socket through which data is emitted to other clients
  */
-module.exports = (io) => {
+module.exports = function setupSocketsLogic(io) {
     io.on('connection', (socket) => {
         // draw event on mousemove
         socket.on('draw', (data) => {
