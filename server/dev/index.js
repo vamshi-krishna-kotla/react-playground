@@ -16,6 +16,9 @@ const { compiler } = require('./compiler');
 // require express server
 const { app } = require('./server');
 
+// require socket logic for communicaing realtime without HTTP
+const socketLogic = require('../common/socket');
+
 // read the port from environment variables else use default
 const PORT = process.env.PORT || 8080;
 
@@ -50,6 +53,9 @@ const watcher = compiler.watch({
 routes.forEach(route => {
 	app.get(route, responseFunction);
 });
+
+// apply socket logic to the server
+socketLogic(io);
 
 // start the server
 httpServer.listen(PORT, () => {

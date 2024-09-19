@@ -4,6 +4,10 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 
+// instantiate new socket for communicating with server for realtime drawing
+import { io } from 'socket.io-client';
+const connectionSocket = io();
+
 import Toolbar from './components/toolbar/Toolbar.jsx';
 
 import styles from './Skribble.module.scss';
@@ -49,6 +53,21 @@ export default function Skribble() {
                 context.moveTo(lastX, lastY);
                 context.lineTo(event.offsetX, event.offsetY);
                 context.stroke();
+
+                /*
+                    emit to server socket while drawing
+                    (userId, lineWidth, strokeStyle, fromX, fromY, toX, toY)
+                */
+                connectionSocket.emit('draw', {
+                    lineWidth: context.lineWidth,
+                    strokeStyle: context.strokeStyle,
+                    fromX: lastX,
+                    fromY: lastY,
+                    toX: event.offsetX,
+                    toY: event.offsetY
+                });
+
+                // set last moved point for current cursor
                 [lastX, lastY] = [event.offsetX, event.offsetY];
             }
         };
@@ -68,7 +87,30 @@ export default function Skribble() {
             event.stopPropagation();
 
             context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+            // emit clear event to server
+            connectionSocket.emit('clearCanvas');
         };
+
+        /*
+            read from server socket, draw/clear when data is recevied from server socket
+            do not draw if the recevied message is from same user as it is already being drawn/cleared
+        */
+        connectionSocket.on('draw', (data) => {
+            if (data.userId !== connectionSocket.id) {
+                context.lineWidth = data.lineWidth;
+                context.strokeStyle = data.strokeStyle;
+                context.beginPath();
+                context.moveTo(data.fromX, data.fromY);
+                context.lineTo(data.toX, data.toY);
+                context.stroke();
+            }
+        });
+        connectionSocket.on('clearCanvas', (data) => {
+            if (data.userId !== connectionSocket.id) {
+                context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+            }
+        });
     }, []);
 
     return (
